@@ -4,6 +4,9 @@ import React from 'react';
 //import ItemOrdine from '../components/ItemOrdine';
 //import DettaglioPiatto from '../components/DettaglioPiatto';
 import { Layout } from 'antd';
+import ItemCategoria from '../components/ItemCategoria';
+import ItemCarrello from '../components/ItemCarrello';
+import ItemProdotto from '../components/ItemProdotto';
 //import Temp0Service from '../services/Temp0Service';
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -28,7 +31,6 @@ function Categoria() {
 
 };
 */
-
 function VistaMenu() {
     return (
         <Layout style={{
@@ -43,19 +45,50 @@ function VistaMenu() {
             </Header>
             <Layout>
                 
-                <Sider width={"25%"} >
-                   8585585
+                <Sider  width={"25%"}  style={{ overflow: 'auto'}} >
+                   <ItemCategoria/>
+                   <ItemCategoria/>
+                   <ItemCategoria/>
+                   <ItemCategoria/>
+                   <ItemCategoria/>
+                   <ItemCategoria/>
+                    <ItemCategoria/>
+                    <ItemCategoria/>
+                    <ItemCategoria/>
+                    <ItemCategoria/>
+                    <ItemCategoria/>
+                    <ItemCategoria/>
+                    <ItemCategoria/>
+                    <ItemCategoria/>
+
+                
                 </Sider>
-                <Content>
-                   
+                <Content style={{ overflow: 'auto'}} >
+                 <ItemProdotto/>
+                  <ItemProdotto/>
+                   <ItemProdotto/>
+                    <ItemProdotto/>
+                  <ItemProdotto/>
+                   <ItemProdotto/> <ItemProdotto/>
+                  <ItemProdotto/>
+                   <ItemProdotto/> <ItemProdotto/>
+                  <ItemProdotto/>
+                   <ItemProdotto/> <ItemProdotto/>
+                  <ItemProdotto/>
+                   <ItemProdotto/> <ItemProdotto/>
+                  <ItemProdotto/>
+                   <ItemProdotto/> <ItemProdotto/>
+                  <ItemProdotto/>
+                   <ItemProdotto/> <ItemProdotto/>
+                  <ItemProdotto/>
+                   <ItemProdotto/> <ItemProdotto/>
+                  <ItemProdotto/>
+                   <ItemProdotto/>
                 </Content>
                 
             </Layout>
-            <Footer  style={{
-                   height: "25vh",
-                   backgroundColor: "orange"
-                }} >
-                Footer
+            <Footer  style={{height: "25vh",backgroundColor: "orange",padding:"5px"}} >
+                <ItemCarrello/>
             </Footer>
         </Layout>
     );
