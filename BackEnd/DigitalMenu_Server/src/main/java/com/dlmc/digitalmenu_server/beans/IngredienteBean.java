@@ -10,19 +10,19 @@ package com.dlmc.digitalmenu_server.beans;
  * @author Gerardo
  */
 public class IngredienteBean {
-     private String nome_Ing ;
+     private String nomeIng ;
      private int ingredienteId;
      private boolean isRimovibile ;
      
 
     public IngredienteBean(String nome_Ing, int ingredienteId,boolean isRimovibile) {
-        this.nome_Ing = nome_Ing;
+        this.nomeIng = nome_Ing;
         this.ingredienteId = ingredienteId;
         this.isRimovibile=isRimovibile;
     }
 
     public String getNome_Ing() {
-        return nome_Ing;
+        return nomeIng;
     }
 
     public boolean isIsRimovibile() {
@@ -34,7 +34,7 @@ public class IngredienteBean {
     }
 
     public void setNome_Ing(String nome_Ing) {
-        this.nome_Ing = nome_Ing;
+        this.nomeIng = nome_Ing;
     }
 
     public int getIngredienteId() {

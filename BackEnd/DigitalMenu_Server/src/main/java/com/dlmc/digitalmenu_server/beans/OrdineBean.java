@@ -11,20 +11,20 @@ package com.dlmc.digitalmenu_server.beans;
  */
 public class OrdineBean {
 
- private  int  ordineid;
+ private  int  ordineId;
  private int stato;
 
     public OrdineBean(int ordineid, int stato) {
-        this.ordineid = ordineid;
+        this.ordineId = ordineid;
         this.stato= stato;
     }
 
     public int getComandaid() {
-        return ordineid;
+        return ordineId;
     }
 
     public void setComandaid(int ordineid) {
-        this.ordineid = ordineid;
+        this.ordineId = ordineid;
     }
 
     public int getStato() {

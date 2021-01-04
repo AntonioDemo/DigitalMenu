@@ -5,10 +5,11 @@
  */
 package com.dlmc.digitalmenu_server.controller;
 
-import com.dlmc.temp0_server.beans.PiattoBean;
-import com.dlmc.temp0_server.dao.DriverManagerConnectionPool;
-import com.dlmc.temp0_server.dao.PiattoDAO;
-import com.google.gson.Gson;
+
+import com.dlmc.digitalmenu_server.beans.ProdottoBean;
+import com.dlmc.digitalmenu_server.dao.DriverManagerConnectionPool;
+import com.dlmc.digitalmenu_server.dao.ProdottoDAO;
+//import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -19,16 +20,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-
-/**
- *
- * @author antonio
- */
+@WebServlet("/GestioneOrdine")
 public class GestioneOrdine extends HttpServlet {
 
     static Connection currentCon = null;
@@ -45,20 +43,26 @@ public class GestioneOrdine extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
      //  int idcat = Integer.parseInt(   request.getParameter("id"));
-       try (PrintWriter out = response.getWriter()) {
+     //  try (PrintWriter out = response.getWriter()) {
      
-       List<PiattoBean> piatto = new ArrayList<PiattoBean>();
-           piatto=PiattoDAO.getAllPiattiByCat(1);
-      
-        String json =new Gson ().toJson(piatto);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        
+       List<ProdottoBean> prodottoBean = new ArrayList<ProdottoBean>();
+          prodottoBean=ProdottoDAO.getAllPiattiByCat(1);
+           //System.out.println( DriverManagerConnectionPool.getConnection().toString());
+              response.setContentType("text/html");
+              PrintWriter out= response.getWriter();
+              out.println("<h1>"+prodottoBean.get(0).getNome() +"</h1>");
+              out.println("<h1>"+prodottoBean.get(0).getFoto() +"</h1>");
+              out.println("<h1>"+prodottoBean.get(0).getPrezzo() +"</h1>");
+              
+     //  String json =new Gson ().toJson(piatto);
+       // response.setContentType("application/json");
+        //response.setCharacterEncoding("UTF-8");
+       
         //Gson gson = new GsonBuilder().serializeNulls().create();
         //String json = gson.toJson(t);
         
-        response.getWriter().write(json);
-    }
+      //  response.getWriter().write(json);
+    
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

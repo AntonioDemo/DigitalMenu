@@ -11,11 +11,11 @@ package com.dlmc.digitalmenu_server.beans;
  */
 public class MenuBean {
     private int menuId;
-    private String nome_Menu ;
+    private String nomeMenu ;
 
     public MenuBean(int menuId, String nome_Menu) {
         this.menuId = menuId;
-        this.nome_Menu = nome_Menu;
+        this.nomeMenu = nome_Menu;
     }
 
     public int getMenuId() {
@@ -27,11 +27,11 @@ public class MenuBean {
     }
 
     public String getNome_Menu() {
-        return nome_Menu;
+        return nomeMenu;
     }
 
     public void setNome_Menu(String nome_Menu) {
-        this.nome_Menu = nome_Menu;
+        this.nomeMenu = nome_Menu;
     }
     
     
