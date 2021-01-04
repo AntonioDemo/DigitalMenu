@@ -7,7 +7,7 @@ function ItemProdotto(props) {
             onClick={() => (alert("cioa"))}
             hoverable
             bodyStyle ={{padding:"5px"}}
-            style={{ display:"inline-block", width: "200px", height: "200px", margin:"5px" , padding:"0px" }}>
+            style={{ display:"inline-block", width: "30%", margin:"5px" , padding:"0px" }}>
             <Row>
                 <Col>
                     <img src={"https://i0.wp.com/www.sicilianicreativiincucina.it/wp-content/uploads/2018/06/linguine-con-vongole.jpg?fit=700%2C686&ssl=1"}
@@ -21,13 +21,21 @@ function ItemProdotto(props) {
                 <Col style={{margin:"auto"}}>
                     <h3>Titolo prodotto{props.nome}</h3>
                 </Col>
-            </Row>
-
-            <div>
-                <div style={{width:"80px",height:"30px",backgroundColor:"orange",marginLeft:"120px",marginTop:"-15px",position:"relative", zindex:"1000"}} >
+                <div 
+                style={{
+                    right:"0",
+                    bottom:"0",
+                    marginRight:"-10px",
+                    marginBottom:"-10px",
+                    width:"80px",
+                    height:"30px",
+                    backgroundColor:"orange",
+                    position:"absolute", 
+                    zindex:"1000"}} >
+                        
                         <h3>15,55€{props.prezzo}</h3>
                 </div>
-            </div>
+            </Row>
         </Card>
     );
 }

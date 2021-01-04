@@ -45,7 +45,7 @@ function VistaMenu() {
             </Header>
             <Layout>
                 
-                <Sider  width={"25%"}  style={{ overflow: 'auto'}} >
+                <Sider  width={"15%"}  style={{ overflow: 'auto'}} >
                    <ItemCategoria/>
                    <ItemCategoria/>
                    <ItemCategoria/>
