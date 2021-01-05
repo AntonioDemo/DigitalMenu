@@ -12,24 +12,28 @@ package com.dlmc.digitalmenu_server.beans;
 public class IngredienteBean {
      private String nomeIng ;
      private int ingredienteId;
-     private boolean isRimovibile ;
+     private int isRimovibile ;
      
 
-    public IngredienteBean(String nome_Ing, int ingredienteId,boolean isRimovibile) {
+    public IngredienteBean(String nome_Ing, int ingredienteId,int isRimovibile) {
         this.nomeIng = nome_Ing;
         this.ingredienteId = ingredienteId;
         this.isRimovibile=isRimovibile;
+    }
+
+    public IngredienteBean() {
+ 
     }
 
     public String getNome_Ing() {
         return nomeIng;
     }
 
-    public boolean isIsRimovibile() {
+    public int isIsRimovibile() {
         return isRimovibile;
     }
 
-    public void setIsRimovibile(boolean isRimovibile) {
+    public void setIsRimovibile(int isRimovibile) {
         this.isRimovibile = isRimovibile;
     }
 

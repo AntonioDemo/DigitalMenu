@@ -6,6 +6,7 @@
 package com.dlmc.digitalmenu_server.beans;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -16,7 +17,7 @@ public class ProdottoBean {
 	private double prezzo;
 	private String foto;
         private String nome ;
-        private ArrayList<IngredienteBean> listaIngredienti;
+        private List<IngredienteBean> listaIngredienti;
         
     public ProdottoBean(int prodottoId, double prezzo, String foto, String nome) {
         this.prodottoId = prodottoId;
@@ -65,11 +66,15 @@ public class ProdottoBean {
         this.nome = nome;
     }
     
-       public void addIngrediente (IngredienteBean i) {
-        this.listaIngredienti.add(i);
+       public void addIngrediente (List<IngredienteBean> i) {
+        this.listaIngredienti=i;
     }
            public boolean removeIngrediente (IngredienteBean i) {
      return this.listaIngredienti.remove(i);
+    }
+
+    public List<IngredienteBean> getListaIngredienti() {
+        return listaIngredienti;
     }
         
 }

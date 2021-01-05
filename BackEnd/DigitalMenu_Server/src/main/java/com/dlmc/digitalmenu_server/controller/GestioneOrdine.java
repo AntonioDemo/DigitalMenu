@@ -5,32 +5,29 @@
  */
 package com.dlmc.digitalmenu_server.controller;
 
-
+import com.dlmc.digitalmenu_server.beans.OrdineBean;
 import com.dlmc.digitalmenu_server.beans.ProdottoBean;
-import com.dlmc.digitalmenu_server.dao.DriverManagerConnectionPool;
+import com.dlmc.digitalmenu_server.dao.OrdineDAO;
 import com.dlmc.digitalmenu_server.dao.ProdottoDAO;
-//import com.google.gson.Gson;
+import com.google.gson.Gson;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-@WebServlet("/GestioneOrdine")
+/**
+ *
+ * @author Gerardo
+ */
+@WebServlet(name = "GestioneOrdine", urlPatterns = {"/GestioneOrdine"})
 public class GestioneOrdine extends HttpServlet {
 
-    static Connection currentCon = null;
-	static ResultSet rs;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,48 +36,16 @@ public class GestioneOrdine extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     *
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
-     //  int idcat = Integer.parseInt(   request.getParameter("id"));
-     //  try (PrintWriter out = response.getWriter()) {
-     
-       List<ProdottoBean> prodottoBean = new ArrayList<ProdottoBean>();
-          prodottoBean=ProdottoDAO.getAllPiattiByCat(1);
-           //System.out.println( DriverManagerConnectionPool.getConnection().toString());
-              response.setContentType("text/html");
-              PrintWriter out= response.getWriter();
-              out.println("<h1>"+prodottoBean.get(0).getNome() +"</h1>");
-              out.println("<h1>"+prodottoBean.get(0).getFoto() +"</h1>");
-              out.println("<h1>"+prodottoBean.get(0).getPrezzo() +"</h1>");
-              
-     //  String json =new Gson ().toJson(piatto);
-       // response.setContentType("application/json");
-        //response.setCharacterEncoding("UTF-8");
-       
-        //Gson gson = new GsonBuilder().serializeNulls().create();
-        //String json = gson.toJson(t);
-        
-      //  response.getWriter().write(json);
-    
+            throws ServletException, IOException {
     }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(GestioneOrdine.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -94,11 +59,45 @@ public class GestioneOrdine extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        StringBuffer jb = new StringBuffer();
+        String line = null;
+    
+
         try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(GestioneOrdine.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            BufferedReader reader = request.getReader();
+            while ((line = reader.readLine()) != null) {
+                jb.append(line);
+            }
+        } catch (Exception e) {
+                e.printStackTrace(); }
+
+        ListaOrdine.addOrdine(new Gson().fromJson(jb.toString(), OrdineBean.class));
+        ListaOrdine.returnOrdine(0).setOrdineId(1);
+        
+        OrdineDAO.doSave( ListaOrdine.returnOrdine(0));
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Servlet GestioneOrdine</title>");
+        out.println("</head>");
+     /*   out.println("<body>");
+        out.println("<h1>Servlet GestioneOrdine at " + p.getOrdineId() + "</h1>");
+        out.println("<h1>Servlet GestioneOrdine at " + p.getStato() + "</h1>");
+        out.println("<h1>Servlet GestioneOrdine at " + p.getListaProdotti().get(0).getNome() + "</h1>");
+        out.println("<h1>Servlet GestioneOrdine at " + p.getListaProdotti().get(0).getNome() + "</h1>");
+        out.println("<h1>Servlet GestioneOrdine at " + p.getListaProdotti().get(1).getListaIngredienti().get(0).getNome_Ing() + "</h1>");
+        out.println("<h1>Servlet GestioneOrdine at " + p.getListaProdotti().get(1).getNome() + "</h1>");
+        out.println("<h1>Servlet GestioneOrdine at " + p.getListaProdotti().get(1).getListaIngredienti().get(0).getNome_Ing() + "</h1>");
+        /*    out.println("<h1>Servlet GestioneOrdine at " +p.get(1).getNome() +"</h1>");
+              out.println("<h1>Servlet GestioneOrdine at " +p.get(2).getNome() +"</h1>");
+         */
+        out.println("<h1>Servlet GestioneOrdine at " + request.getParameter("prezzo") + "</h1>");
+        out.println("</body>");
+        out.println("</html>");
+
     }
 
     /**
