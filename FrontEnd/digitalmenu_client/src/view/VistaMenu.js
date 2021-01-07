@@ -8,6 +8,7 @@ import ItemCategoria from "../components/ItemCategoria";
 import ItemCarrello from "../components/ItemCarrello";
 import ItemProdotto from "../components/ItemProdotto";
 import DigitalMenuService from "../services/DigitalMenuService";
+import VistaCategoria from "./VistaCategoria";
 //import Temp0Service from '../services/Temp0Service';
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -16,6 +17,9 @@ function Categoria() {
     console.log(res.data);
   });
 
+  DigitalMenuService.getCategorie()
+    .then((res) => res.data)
+    .then((json) => console.log(json));
   //SEND
   DigitalMenuService.inviaProva()
     .then((response) => response.data)
@@ -38,27 +42,13 @@ function VistaMenu() {
         }}
       ></Header>
       <Layout>
-        <Categoria />
         <Sider
           width={"15%"}
           style={{
             overflow: "auto",
           }}
         >
-          <ItemCategoria />
-          <ItemCategoria />
-          <ItemCategoria />
-          <ItemCategoria />
-          <ItemCategoria />
-          <ItemCategoria />
-          <ItemCategoria />
-          <ItemCategoria />
-          <ItemCategoria />
-          <ItemCategoria />
-          <ItemCategoria />
-          <ItemCategoria />
-          <ItemCategoria />
-          <ItemCategoria />
+          <VistaCategoria />
         </Sider>
         <Content
           style={{

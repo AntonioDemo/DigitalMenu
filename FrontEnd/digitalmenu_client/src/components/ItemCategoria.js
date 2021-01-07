@@ -26,7 +26,7 @@ function ItemCategoria(props) {
       </Row>
       <Row>
         <Col style={{ margin: "auto" }}>
-          <h2>Categoria</h2>
+          <h2>{props.nome}</h2>
         </Col>
       </Row>
     </Card>

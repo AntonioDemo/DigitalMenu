@@ -14,6 +14,18 @@ class DigitalMenuService {
     return axios.get(URL + "GestionePiatti");
   }
 
+  getCategorie() {
+    return axios.get(URL + "todos");
+  }
+
+  async getCategorie() {
+    return axios.get("https://jsonplaceholder.typicode.com/todos", {
+      params: {
+        _limit: 10,
+      },
+    });
+  }
+
   // SEND
   inviaProva() {
     return axios({
