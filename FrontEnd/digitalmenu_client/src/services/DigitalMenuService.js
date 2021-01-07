@@ -10,15 +10,19 @@ class DigitalMenuService {
     return axios.get(URL + "todos/1");
   }
 
-  getAllPiattiByCategoria() {
-    return axios.get(URL + "GestionePiatti");
+  getAllProdottiByCategoria(id) {
+    return axios.get("https://jsonplaceholder.typicode.com/todos", {
+      params: {
+        idCategoria: id,
+      },
+    });
   }
 
   getCategorie() {
     return axios.get(URL + "todos");
   }
 
-  async getCategorie() {
+  getCategorie() {
     return axios.get("https://jsonplaceholder.typicode.com/todos", {
       params: {
         _limit: 10,

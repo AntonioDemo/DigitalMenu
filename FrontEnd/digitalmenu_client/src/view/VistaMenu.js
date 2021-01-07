@@ -9,6 +9,7 @@ import ItemCarrello from "../components/ItemCarrello";
 import ItemProdotto from "../components/ItemProdotto";
 import DigitalMenuService from "../services/DigitalMenuService";
 import VistaCategoria from "./VistaCategoria";
+import VistaProdotti from "./VistaProdotti";
 //import Temp0Service from '../services/Temp0Service';
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -55,33 +56,7 @@ function VistaMenu() {
             overflow: "auto",
           }}
         >
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
-          <ItemProdotto />
+          <VistaProdotti />
         </Content>
       </Layout>
       <Footer
