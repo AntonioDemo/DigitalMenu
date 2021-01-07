@@ -13,8 +13,11 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -62,7 +65,7 @@ public class GestioneOrdine extends HttpServlet {
 
         StringBuffer jb = new StringBuffer();
         String line = null;
-    
+       
 
         try {
             BufferedReader reader = request.getReader();
@@ -70,20 +73,25 @@ public class GestioneOrdine extends HttpServlet {
                 jb.append(line);
             }
         } catch (Exception e) {
-                e.printStackTrace(); }
-
-        ListaOrdine.addOrdine(new Gson().fromJson(jb.toString(), OrdineBean.class));
-        ListaOrdine.returnOrdine(0).setOrdineId(1);
-        
-        OrdineDAO.doSave( ListaOrdine.returnOrdine(0));
-        response.setContentType("text/html");
+            e.printStackTrace();
+        }
         PrintWriter out = response.getWriter();
         out.println("<!DOCTYPE html>");
+        response.setContentType("text/html");
+        int i=0;
+        ListaOrdine.addOrdine(new Gson().fromJson(jb.toString(), OrdineBean.class),i);
+        ListaOrdine.returnOrdine(i).setOrdineId(i++);
+        out.println("<h1>Servlet GestioneOrdine at " + ListaOrdine.returnOrdine(i).getOrdineId()+ "</h1>");
+        out.println("<h1>Servlet GestioneOrdine at " + ListaOrdine.returnOrdine(i).getListaProdotti().get(i).getProdottoId() + "</h1>");
+        System.out.println("com.dlmc.digitalmenu_server.controller.GestioneOrdine.doPost()");
+       
+           OrdineDAO.doSave(ListaOrdine.returnOrdine(i));
+      
         out.println("<html>");
         out.println("<head>");
         out.println("<title>Servlet GestioneOrdine</title>");
         out.println("</head>");
-     /*   out.println("<body>");
+        /*   out.println("<body>");
         out.println("<h1>Servlet GestioneOrdine at " + p.getOrdineId() + "</h1>");
         out.println("<h1>Servlet GestioneOrdine at " + p.getStato() + "</h1>");
         out.println("<h1>Servlet GestioneOrdine at " + p.getListaProdotti().get(0).getNome() + "</h1>");
@@ -94,7 +102,7 @@ public class GestioneOrdine extends HttpServlet {
         /*    out.println("<h1>Servlet GestioneOrdine at " +p.get(1).getNome() +"</h1>");
               out.println("<h1>Servlet GestioneOrdine at " +p.get(2).getNome() +"</h1>");
          */
-        out.println("<h1>Servlet GestioneOrdine at " + request.getParameter("prezzo") + "</h1>");
+        //out.println("<h1>Servlet GestioneOrdine at " + request.getParameter("prezzo") + "</h1>");
         out.println("</body>");
         out.println("</html>");
 
