@@ -5,7 +5,6 @@
  */
 package com.dlmc.digitalmenu_server.controller;
 
-
 import com.dlmc.digitalmenu_server.beans.IngredienteBean;
 import com.dlmc.digitalmenu_server.beans.ProdottoBean;
 import com.dlmc.digitalmenu_server.dao.DriverManagerConnectionPool;
@@ -13,7 +12,7 @@ import com.dlmc.digitalmenu_server.dao.IngredienteDAO;
 import com.dlmc.digitalmenu_server.dao.ProdottoDAO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-//import com.google.gson.Gson;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -29,12 +28,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 @WebServlet("/GestioneProdotto")
 public class GestioneProdotto extends HttpServlet {
 
     static Connection currentCon = null;
-	static ResultSet rs;
+    static ResultSet rs;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,32 +45,8 @@ public class GestioneProdotto extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-     //  int idcat = Integer.parseInt(   request.getParameter("id"));
-     //  try (PrintWriter out = response.getWriter()) {
-
-      List<ProdottoBean> prodottoBean = new ArrayList<ProdottoBean>();
-          prodottoBean=ProdottoDAO.getAllPiattiByCat(1);
-            List<IngredienteBean> ingredienteBean = new ArrayList<IngredienteBean>();
-          ingredienteBean=IngredienteDAO.getAllIngredientiByPro(1);
-         prodottoBean.get(0).addIngrediente(ingredienteBean);
-           //System.out.println( DriverManagerConnectionPool.getConnection().toString());
-              response.setContentType("text/html");
-              PrintWriter out= response.getWriter();
-              out.println("<h1>"+ingredienteBean.get(0).getNome_Ing() +"</h1>");
-               out.println("<h1>"+ingredienteBean.get(1).getNome_Ing() +"</h1>");
-                out.println("<h1>"+ingredienteBean.get(2).getNome_Ing() +"</h1>");
-         //     out.println("<h1>"+prodottoBean.get(0).getFoto() +"</h1>");
- 
-     /*  String json =new Gson ().toJson(prodottoBean);
-         response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");*/
-       
-      Gson gson = new GsonBuilder().serializeNulls().create();
-        String json = gson.toJson(prodottoBean);
-        
-    response.getWriter().write(json);
- 
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -84,11 +59,15 @@ public class GestioneProdotto extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(GestioneProdotto.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        List<IngredienteBean> ingredienteBean = new ArrayList<IngredienteBean>();
+        ingredienteBean = IngredienteDAO.getAllIngredientiByPro(Integer.parseInt(request.getParameter("idP")));
+        ProdottoBean pro = new ProdottoBean();
+        pro = ProdottoDAO.getPrdotto(Integer.parseInt(request.getParameter("idP")));
+        pro.addIngrediente(ingredienteBean);
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        String json = gson.toJson(pro);
+
+        response.getWriter().write(json);
     }
 
     /**

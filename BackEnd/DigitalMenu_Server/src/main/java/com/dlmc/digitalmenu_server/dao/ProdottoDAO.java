@@ -23,24 +23,24 @@ import java.util.List;
 public class ProdottoDAO {
     
     
-    public static List<ProdottoBean> getAllPiattiByCat (int idCat )
+    public static ProdottoBean getPrdotto (int idPro )
       
     
-    {
-              List<ProdottoBean> prodotto = new ArrayList<ProdottoBean>();
-        
+    {ProdottoBean prodotto = new ProdottoBean();
+            
+                    
            
     try {
 
-			String query = "SELECT prodotto.*" + " FROM contiene INNER JOIN prodotto ON contiene.idpro= prodotto.idProdotto WHERE contiene.idcat=?";
+			String query = "SELECT prodotto.* FROM  prodotto WHERE idProdotto=?";
 			Connection con = DriverManagerConnectionPool.getConnection();
 			PreparedStatement p = con.prepareStatement(query);
-                        p.setInt(1, idCat);
+                        p.setInt(1, idPro);
                         ResultSet answers = p.executeQuery();
 			
 			while (answers.next()) {
 				
-				ProdottoBean bean = new ProdottoBean();
+				
 				int id = Integer.parseInt(answers.getString(1));
 				String nome = answers.getString(2);
 				double prezzo = Double.parseDouble(answers.getString(3));
@@ -49,17 +49,17 @@ public class ProdottoDAO {
 				
 				
 				
-				bean.setProdottoId(id);
-				bean.setNome(nome);
-				bean.setPrezzo(prezzo);
-                                bean.setFoto(immagine);
+				prodotto.setProdottoId(id);
+				prodotto.setNome(nome);
+				prodotto.setPrezzo(prezzo);
+                                prodotto.setFoto(immagine);
                            
 				
 			
 			
 				
 
-				prodotto.add(bean);
+				
 
 			}
 			answers.close();
