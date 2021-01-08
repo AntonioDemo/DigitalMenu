@@ -1,8 +1,8 @@
 import React from "react";
-import { Row, Col, Card, Button } from "antd";
+import { Row, Col, Button } from "antd";
 import { Layout } from "antd";
 import ItemRigaProdotto from "../components/ItemRigaProdotto";
-const { Header, Footer, Sider, Content } = Layout;
+const { Content } = Layout;
 
 function VistaCarrello(props) {
   return (

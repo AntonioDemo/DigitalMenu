@@ -12,6 +12,7 @@ function ItemCategoria(props) {
       <Row style={{ margin: "0px", padding: "0px" }}>
         <Col style={{ width: "100%" }}>
           <img
+            alt={"prova"}
             src={
               "https://i0.wp.com/www.sicilianicreativiincucina.it/wp-content/uploads/2018/06/linguine-con-vongole.jpg?fit=700%2C686&ssl=1"
             }

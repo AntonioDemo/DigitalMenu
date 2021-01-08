@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Row, Col, Card } from "antd";
+import CarrelloContext from "../context/CarrelloContext";
 
 function ItemProdotto(props) {
+  const [carrelloContext, setCarrelloContext] = useContext(CarrelloContext);
   return (
     <Card
-      onClick={() => alert("cioa")}
+      onClick={() => {
+        let a = carrelloContext;
+        a.prova = 5;
+        setCarrelloContext(a);
+        console.log(carrelloContext);
+      }}
       hoverable
       bodyStyle={{ padding: "5px" }}
       style={{
@@ -17,6 +24,7 @@ function ItemProdotto(props) {
       <Row>
         <Col>
           <img
+            alt={"prodotto"}
             src={
               "https://i0.wp.com/www.sicilianicreativiincucina.it/wp-content/uploads/2018/06/linguine-con-vongole.jpg?fit=700%2C686&ssl=1"
             }

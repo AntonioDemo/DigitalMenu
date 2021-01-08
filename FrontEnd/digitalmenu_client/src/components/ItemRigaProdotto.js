@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Card, Button } from "antd";
+import { Row, Col } from "antd";
 
 function ItemRigaProdotto(props) {
   return (
