@@ -1,25 +1,10 @@
 import React from "react";
 import { Row, Col, Card, Button } from "antd";
 import { Layout } from "antd";
+import ItemRigaProdotto from "../components/ItemRigaProdotto";
 const { Header, Footer, Sider, Content } = Layout;
 
-function RigaProdotto(props) {
-  return (
-    <Row
-      style={{
-        backgroundColor: "grey",
-        padding: "5px",
-      }}
-    >
-      <Col flex="auto">Nome prodotto</Col>
-      <Col flex="100px">Quantità: n</Col>
-      <Col flex="100px">Prezzo: n</Col>
-      <Col flex="100px">imgg</Col>
-    </Row>
-  );
-}
-
-function ItemCarrello(props) {
+function VistaCarrello(props) {
   return (
     <Layout
       style={{
@@ -65,19 +50,7 @@ function ItemCarrello(props) {
                   overflow: "auto",
                 }}
               >
-                <RigaProdotto />
-                <RigaProdotto />
-                <RigaProdotto />
-                <RigaProdotto />
-                <RigaProdotto />
-                <RigaProdotto />
-                <RigaProdotto />
-                <RigaProdotto />
-                <RigaProdotto />
-                <RigaProdotto />
-                <RigaProdotto />
-                <RigaProdotto />
-                <RigaProdotto />
+                <ItemRigaProdotto />
               </Col>
 
               <Col
@@ -129,4 +102,4 @@ function ItemCarrello(props) {
   );
 }
 
-export default ItemCarrello;
+export default VistaCarrello;

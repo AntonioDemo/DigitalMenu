@@ -1,33 +1,9 @@
 import React from "react";
-// import ProvaCarousel from '../components/ProvaCarousel'; import
-// VerticalCarousel from '../components/VerticalCarousel'; import ItemOrdine
-// from '../components/ItemOrdine'; import DettaglioPiatto from
-// '../components/DettaglioPiatto';
 import { Layout } from "antd";
-import ItemCategoria from "../components/ItemCategoria";
-import ItemCarrello from "../components/ItemCarrello";
-import ItemProdotto from "../components/ItemProdotto";
-import DigitalMenuService from "../services/DigitalMenuService";
 import VistaCategoria from "./VistaCategoria";
 import VistaProdotti from "./VistaProdotti";
-//import Temp0Service from '../services/Temp0Service';
+import VistaCarrello from "./VistaCarrello";
 const { Header, Footer, Sider, Content } = Layout;
-
-function Categoria() {
-  DigitalMenuService.getProva().then((res) => {
-    console.log(res.data);
-  });
-
-  DigitalMenuService.getCategorie()
-    .then((res) => res.data)
-    .then((json) => console.log(json));
-  //SEND
-  DigitalMenuService.inviaProva()
-    .then((response) => response.data)
-    .then((json) => console.log(json));
-
-  return true;
-}
 
 function VistaMenu() {
   return (
@@ -66,7 +42,7 @@ function VistaMenu() {
           padding: "5px",
         }}
       >
-        <ItemCarrello />
+        <VistaCarrello />
       </Footer>
     </Layout>
   );
