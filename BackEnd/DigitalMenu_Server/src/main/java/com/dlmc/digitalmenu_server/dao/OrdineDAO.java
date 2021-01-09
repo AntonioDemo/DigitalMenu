@@ -59,4 +59,21 @@ public class OrdineDAO {
         }
     }
 
+    public static int getLastId() throws SQLException {
+
+        String sql = "  SELECT max(idordine) FROM ordine;";
+     
+        Connection con = DriverManagerConnectionPool.getConnection();
+            PreparedStatement p = con.prepareStatement(sql);
+           ResultSet answers = p.executeQuery();
+           if(answers.next()==false)
+               return 0;
+           int id = Integer.parseInt(answers.getString(1));
+           answers.close();
+            p.close();
+            con.close();
+     
+    
+        return id;
+    }
 }
