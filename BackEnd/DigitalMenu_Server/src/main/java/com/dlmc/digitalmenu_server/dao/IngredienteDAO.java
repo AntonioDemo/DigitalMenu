@@ -14,62 +14,48 @@ import java.util.List;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Gerardo
  */
 public class IngredienteDAO {
-    
-    
-     public static List<IngredienteBean> getAllIngredientiByPro (int idProdotto )
-      
-    
-    {
-              List<IngredienteBean> ingrediente = new ArrayList<IngredienteBean>();
-        
-           
-    try {
 
-			String query = "SELECT ingrediente.*" + " FROM formato INNER JOIN ingrediente ON formato.idingrediente= ingrediente.idIngrediente WHERE formato.idprodot=?";
-			Connection con = DriverManagerConnectionPool.getConnection();
-			PreparedStatement p = con.prepareStatement(query);
-                        p.setInt(1, idProdotto);
-                        ResultSet answers = p.executeQuery();
-			
-			while (answers.next()) {
-				
-				IngredienteBean bean = new IngredienteBean();
-				int id = Integer.parseInt(answers.getString(1));
-				String nome = answers.getString(2);
-				int prezzo = Integer.parseInt(answers.getString(3));
-			
-			
-				
-				
-				
-				bean.setIngredienteId(id);
-				bean.setNome_Ing(nome);
-				bean.setIsRimovibile(prezzo);
-                          
-                           
-				
-			
-			
-				
+    public static List<IngredienteBean> getAllIngredientiByPro(int idProdotto) {
+        List<IngredienteBean> ingrediente = new ArrayList<IngredienteBean>();
 
-				ingrediente.add(bean);
+        try {
 
-			}
-			answers.close();
-			p.close();
-			con.close();
+            String query = "SELECT ingrediente.*" + " FROM formato INNER JOIN ingrediente ON formato.idingrediente= ingrediente.idIngrediente WHERE formato.idprodot=?";
+            Connection con = DriverManagerConnectionPool.getConnection();
+            PreparedStatement p = con.prepareStatement(query);
+            p.setInt(1, idProdotto);
+            ResultSet answers = p.executeQuery();
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-         return ingrediente ;
+            while (answers.next()) {
+
+                IngredienteBean bean = new IngredienteBean();
+                int id = Integer.parseInt(answers.getString(1));
+                String nome = answers.getString(2);
+                int prezzo = Integer.parseInt(answers.getString(3));
+
+                bean.setIngredienteId(id);
+                bean.setNome_Ing(nome);
+                bean.setIsRimovibile(prezzo);
+
+                ingrediente.add(bean);
+
+            }
+
+            answers.close();
+            p.close();
+            con.close();
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return ingrediente;
     }
- 
+
 }

@@ -17,9 +17,10 @@ import java.util.List;
  */
 public    class ListaOrdine {
        static  List<OrdineBean> listaOrdine =new ArrayList<OrdineBean>();
-
-    public static void addOrdine(OrdineBean p,int i) {
-        listaOrdine.add(i, p);
+        static int  pos=0 ;
+    public static void addOrdine(OrdineBean p) {
+        listaOrdine.add(pos, p);
+        pos++;
     }
 
     public static OrdineBean returnOrdine(int i) {

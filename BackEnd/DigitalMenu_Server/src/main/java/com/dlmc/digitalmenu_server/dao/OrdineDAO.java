@@ -37,31 +37,43 @@ public class OrdineDAO {
             ps.setInt(1, id);
             ps.executeUpdate();
 
-     
-         
-			
-                      
-			
-               for(ProdottoBean bean : p){
-            PreparedStatement pss = currentCon.prepareStatement(sqll);
-            pss.setInt(1, bean.getProdottoId());
-            pss.setInt(2, id);
-            pss.setDouble(3, bean.getPrezzo());
-            pss.executeUpdate();}
-            currentCon.commit(); 
+            for (ProdottoBean bean : p) {
+                PreparedStatement pss = currentCon.prepareStatement(sqll);
+                pss.setInt(1, bean.getProdottoId());
+                pss.setInt(2, id);
+                pss.setDouble(3, bean.getPrezzo());
+                pss.executeUpdate();
+            }
+            currentCon.commit();
         } catch (SQLException ex) {
             Logger.getLogger(OrdineDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            finally {
-        if (currentCon != null) {
-            try {
-                currentCon.close();
-            } catch (Exception e) {
-            }
+        } finally {
+            if (currentCon != null) {
+                try {
+                    currentCon.close();
+                } catch (Exception e) {
+                }
 
-            currentCon = null;
-        }
+                currentCon = null;
+            }
         }
     }
 
+    public static int getLastId() throws SQLException {
+
+        String sql = "  SELECT max(idordine) FROM ordine;";
+     
+        Connection con = DriverManagerConnectionPool.getConnection();
+            PreparedStatement p = con.prepareStatement(sql);
+           ResultSet answers = p.executeQuery();
+           if(answers.next()==false)
+               return 0;
+           int id = Integer.parseInt(answers.getString(1));
+           answers.close();
+            p.close();
+            con.close();
+     
+    
+        return id;
+    }
 }
