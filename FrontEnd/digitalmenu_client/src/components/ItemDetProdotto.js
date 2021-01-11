@@ -40,6 +40,7 @@ function ItemDetProdotto(props) {
         <Col style={{ margin: "auto" }}>
           <h3>Titolo prodotto{props.nome}</h3>
           <Button onClick={() => props.myFunc()}>Chiudi</Button>
+          <Button onClick={() => props.myFunc()}>Aggiungi</Button>
         </Col>
       </Row>
     </Card>

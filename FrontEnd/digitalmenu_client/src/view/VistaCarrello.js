@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Row, Col, Button } from "antd";
 import { Layout } from "antd";
 import ItemRigaProdotto from "../components/ItemRigaProdotto";
+import CarrelloContext from "../context/CarrelloContext";
 const { Content } = Layout;
 
 function VistaCarrello(props) {
+  const [carrelloContext] = useContext(CarrelloContext);
   return (
     <Layout
       style={{
@@ -50,7 +52,16 @@ function VistaCarrello(props) {
                   overflow: "auto",
                 }}
               >
-                <ItemRigaProdotto />
+                {carrelloContext.listaProdotti.map((value, i) => {
+                  return (
+                    <ItemRigaProdotto
+                      key={i}
+                      nome={value.prodotto.nome}
+                      qta={value.quantita}
+                      prezzo={value.prezzo}
+                    />
+                  );
+                })}
               </Col>
 
               <Col

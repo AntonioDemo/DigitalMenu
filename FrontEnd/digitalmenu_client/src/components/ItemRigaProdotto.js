@@ -9,10 +9,10 @@ function ItemRigaProdotto(props) {
         padding: "5px",
       }}
     >
-      <Col flex="auto">Nome prodotto</Col>
-      <Col flex="100px">Quantità: n</Col>
-      <Col flex="100px">Prezzo: n</Col>
-      <Col flex="100px">imgg</Col>
+      <Col flex="auto"> {props.nome}</Col>
+      <Col flex="100px">Quantità: {props.qta}</Col>
+      <Col flex="100px">Prezzo: {props.prezzo}</Col>
+      <Col flex="100px">DEL</Col>
     </Row>
   );
 }
