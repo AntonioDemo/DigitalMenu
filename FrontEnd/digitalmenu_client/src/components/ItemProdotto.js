@@ -7,6 +7,7 @@ function ItemProdotto(props) {
   return (
     <Card
       onClick={() => {
+        props.myFunc();
         let a = carrelloContext;
         a.prova = 5;
         setCarrelloContext(a);
