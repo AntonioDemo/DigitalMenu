@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Row, Col, Card, Button } from "antd";
+import CarrelloContext from "../context/CarrelloContext";
 
 function ItemDetProdotto(props) {
+  const carrelloContext = useContext(CarrelloContext);
   return (
     <Card
       hidden={props.setHidden}
@@ -38,9 +40,32 @@ function ItemDetProdotto(props) {
       </Row>
       <Row style={{ margin: "5px" }}>
         <Col style={{ margin: "auto" }}>
-          <h3>Titolo prodotto{props.nome}</h3>
-          <Button onClick={() => props.myFunc()}>Chiudi</Button>
-          <Button onClick={() => props.myFunc()}>Aggiungi</Button>
+          <h3>{props.nome}</h3>
+          <h3>{props.prezzo}</h3>
+          <h3>Lista Ingredienti</h3>
+          {props.listIng.map((value, i) => {
+            return <p key={i}> {value.nomeIng} </p>;
+          })}
+          <Button onClick={() => props.funSetHidden()}>Chiudi</Button>
+          <Button
+            onClick={() => {
+              let a = carrelloContext;
+              a.listaProdotti.push({
+                prodotto: {
+                  nome: "DMA",
+                  prodottoId: 1,
+                  prezzo: 5,
+                },
+                quantita: 2,
+                rimIng: "rimuovi un dma",
+              });
+
+              console.log(carrelloContext);
+              props.funSetHidden();
+            }}
+          >
+            Aggiungi
+          </Button>
         </Col>
       </Row>
     </Card>

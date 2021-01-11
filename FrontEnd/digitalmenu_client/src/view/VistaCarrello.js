@@ -6,7 +6,7 @@ import CarrelloContext from "../context/CarrelloContext";
 const { Content } = Layout;
 
 function VistaCarrello(props) {
-  const [carrelloContext] = useContext(CarrelloContext);
+  const carrelloContext = useContext(CarrelloContext);
   return (
     <Layout
       style={{

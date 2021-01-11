@@ -1,17 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Row, Col, Card } from "antd";
-import CarrelloContext from "../context/CarrelloContext";
 
 function ItemProdotto(props) {
-  const [carrelloContext, setCarrelloContext] = useContext(CarrelloContext);
   return (
     <Card
       onClick={() => {
-        props.myFunc();
-        let a = carrelloContext;
-        a.prova = 5;
-        setCarrelloContext(a);
-        console.log(carrelloContext);
+        props.funSetHidden();
       }}
       hoverable
       bodyStyle={{ padding: "5px" }}
