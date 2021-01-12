@@ -24,15 +24,15 @@ import java.util.logging.Logger;
  * @author Gerardo
  */
 public class OrdineDAO {
-static Connection currentCon = null;
+
 
     public static void doSave(OrdineBean b) {
 
         List<DettagliOrdineBean> p = b.getListaProdotti();
-
+         Connection currentCon = null;
         int id = b.getOrdineId();
         int  stato=b.getStato();
-        String sqll = "INSERT INTO digitalmenu.aggiunto(idprodo,idordi,prezzo,deleteing,quantità ) values"
+        String sqll = "INSERT INTO digitalmenu.aggiunto(aggiunto.idprodo,aggiunto.idordi,aggiunto.deleteing,aggiunto.prezzo,aggiunto.quantita) values"
                 + "(?,?,?,?,?);";
         String sql = "INSERT INTO digitalmenu.ordine (idordine,stato) values"
                 + "(?,?);";
@@ -44,17 +44,19 @@ static Connection currentCon = null;
             ps.setInt(1, id);
             ps.setInt(2, stato);
             ps.executeUpdate();
-
-                
+            ps.close();
+               
             for (DettagliOrdineBean bean : p) {
                 PreparedStatement pss = currentCon.prepareStatement(sqll);
                 pss.setInt(1, bean.getProdotto().getProdottoId());
                 pss.setInt(2, id);
-                pss.setDouble(3, bean.getProdotto().getPrezzo());
-                pss.setString(4, bean.getRimIng());
-                pss.setInt(5, bean.getQuantita());
+                 pss.setString(3, bean.getIngedienteRimoso());
+                pss.setDouble(4, bean.getProdotto().getPrezzo());
+               
+                pss.setInt(5, bean.getquantita());
 
                 pss.executeUpdate();
+               
             }
             currentCon.commit();
         } catch (SQLException ex) {
@@ -82,8 +84,11 @@ static Connection currentCon = null;
          con = DriverManagerConnectionPool.getConnection();
             PreparedStatement p = con.prepareStatement(sql);
            ResultSet answers = p.executeQuery();
-           if(answers.next()==false)
-               return 0;
+          answers.next();
+        if(  answers.getString(1)==null)
+            id=0;
+            
+         else
          id = Integer.parseInt(answers.getString(1));
            answers.close();
             p.close();
@@ -148,7 +153,7 @@ static Connection currentCon = null;
         List<OrdineBean> ListOrdi = new ArrayList<OrdineBean>();
         List<ProdottoBean> ListProdotti = new ArrayList<ProdottoBean>();
         String sql = "SELECT stato, idordine, idprodo, quantita, deleteing, nome, comanda.prezzo,foto from "
-                + "(SELECT * from(SELECT * FROM ordine where stato < 4)as ordine\n"
+                + "(SELECT * from(SELECT * FROM ordine where stato < 3)as ordine\n"
                 + "inner join aggiunto on (idordi=idordine)) as comanda\n"
                 + "inner join prodotto on idprodo = idProdotto ;";
         try {

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Gerardo
  */
 @WebServlet(name = "GestioneCodaOrdini", urlPatterns = {"/GestioneCodaOrdini"})
-public class GestioneCodaOrdini extends HttpServlet {
+public class VisualizzaOrdini extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -63,9 +63,9 @@ public class GestioneCodaOrdini extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+ if(ListaOrdine.returnOrdine().isEmpty())
         ListaOrdine.setordini();
-        
+       
         Gson gson = new GsonBuilder().serializeNulls().create();
 
         String json = gson.toJson(ListaOrdine.returnOrdine());

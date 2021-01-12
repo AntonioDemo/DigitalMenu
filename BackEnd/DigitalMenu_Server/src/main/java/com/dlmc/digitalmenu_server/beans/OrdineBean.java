@@ -19,6 +19,11 @@ public class OrdineBean {
 
  private List<DettagliOrdineBean> listaProdotti;
 
+    public OrdineBean() {
+    }
+
+
+
 
 
 
