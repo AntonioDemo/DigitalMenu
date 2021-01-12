@@ -5,6 +5,7 @@
  */
 package com.dlmc.digitalmenu_server.controller;
 
+import com.dlmc.digitalmenu_server.beans.OrdineBean;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
@@ -69,7 +70,8 @@ public class GestioneCodaOrdini extends HttpServlet {
        
         
         Gson gson = new GsonBuilder().serializeNulls().create();
-        String json = gson.toJson(ListaOrdine.listaOrdine);
+       
+        String json = gson.toJson(ListaOrdine.returnOrdini());
 
         response.getWriter().write(json);
     }

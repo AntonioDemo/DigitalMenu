@@ -5,6 +5,7 @@
  */
 package com.dlmc.digitalmenu_server.dao;
 
+import com.dlmc.digitalmenu_server.beans.DettaglioOrdineBean;
 import com.dlmc.digitalmenu_server.beans.OrdineBean;
 import com.dlmc.digitalmenu_server.beans.ProdottoBean;
 import java.sql.Connection;
@@ -21,27 +22,32 @@ import java.util.logging.Logger;
  * @author Gerardo
  */
 public class OrdineDAO {
+static Connection currentCon = null;
 
     public static void doSave(OrdineBean b) {
-        List<ProdottoBean> p = b.getListaProdotti();
+        List<DettaglioOrdineBean> p = b.getListaProdotti();
         int id = b.getOrdineId();
-        String sqll = "INSERT INTO digitalmenu.aggiunto(idprodo,idordi,prezzo ) values"
-                + "(?,?,?);";
-        String sql = "INSERT INTO digitalmenu.ordine (idordine) values"
-                + "(?);";
-        Connection currentCon = null;
+        int  stato=b.getStato();
+        String sqll = "INSERT INTO digitalmenu.aggiunto(idprodo,idordi,prezzo,deleteing,quantità ) values"
+                + "(?,?,?,?,?);";
+        String sql = "INSERT INTO digitalmenu.ordine (idordine,stato) values"
+                + "(?,?);";
+    
         try {
             currentCon = DriverManagerConnectionPool.getConnection();
 
             PreparedStatement ps = currentCon.prepareStatement(sql);
             ps.setInt(1, id);
+            ps.setInt(2, stato);
             ps.executeUpdate();
-
-            for (ProdottoBean bean : p) {
+                
+            for (DettaglioOrdineBean bean : p) {
                 PreparedStatement pss = currentCon.prepareStatement(sqll);
-                pss.setInt(1, bean.getProdottoId());
+                pss.setInt(1, bean.getProdotto().getProdottoId());
                 pss.setInt(2, id);
-                pss.setDouble(3, bean.getPrezzo());
+                pss.setDouble(3, bean.getProdotto().    getPrezzo());
+                pss.setString(4, bean.getRimIng());
+                pss.setInt(5, bean.getQuantita());
                 pss.executeUpdate();
             }
             currentCon.commit();
@@ -59,20 +65,27 @@ public class OrdineDAO {
         }
     }
 
-    public static int getLastId() throws SQLException {
+    public static int getLastId()  {
 
         String sql = "  SELECT max(idordine) FROM ordine;";
-     
-        Connection con = DriverManagerConnectionPool.getConnection();
+           int id = 0;
+           Connection con =null;
+     try{
+         con = DriverManagerConnectionPool.getConnection();
             PreparedStatement p = con.prepareStatement(sql);
            ResultSet answers = p.executeQuery();
            if(answers.next()==false)
                return 0;
-           int id = Integer.parseInt(answers.getString(1));
+         id = Integer.parseInt(answers.getString(1));
            answers.close();
             p.close();
             con.close();
-     
+     }
+     catch (SQLException ex) {
+            Logger.getLogger(OrdineDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+
+           
     
         return id;
     }

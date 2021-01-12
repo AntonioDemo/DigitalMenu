@@ -16,15 +16,15 @@ import java.util.List;
  * @author Gerardo
  */
 public    class ListaOrdine {
-       static  List<OrdineBean> listaOrdine =new ArrayList<OrdineBean>();
-        static int  pos=0 ;
+  static private List<OrdineBean> listaOrdine =new ArrayList<OrdineBean>();
+  
     public static void addOrdine(OrdineBean p) {
-        listaOrdine.add(pos, p);
-        pos++;
+        listaOrdine.add(p);
+
     }
 
-    public static OrdineBean returnOrdine(int i) {
-     return   ListaOrdine.listaOrdine.get(i) ;
+    public static List<OrdineBean> returnOrdini() {
+     return   listaOrdine;
     }
     
 }

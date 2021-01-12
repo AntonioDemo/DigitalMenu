@@ -4,20 +4,13 @@
  * and open the template in the editor.
  */
 package com.dlmc.digitalmenu_server.controller;
-
-import com.dlmc.digitalmenu_server.beans.OrdineBean;
-import com.dlmc.digitalmenu_server.beans.ProdottoBean;
-import com.dlmc.digitalmenu_server.dao.OrdineDAO;
-import com.dlmc.digitalmenu_server.dao.ProdottoDAO;
+import com.dlmc.digitalmenu_server.beans.CategoriaBean;
+import com.dlmc.digitalmenu_server.dao.CategoriaDAO;
 import com.google.gson.Gson;
-import java.io.BufferedReader;
+import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Gerardo
  */
-@WebServlet(name = "GestioneOrdine", urlPatterns = {"/GestioneOrdine"})
-public class GestioneOrdine extends HttpServlet {
+@WebServlet(name = "VisualizzaCat", urlPatterns = {"/VisualizzaCat"})
+public class VisualizzaCat extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,13 +32,22 @@ public class GestioneOrdine extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     *
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+       
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -63,40 +65,12 @@ public class GestioneOrdine extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        List <CategoriaBean> b = CategoriaDAO.getAllCat();
+      Gson gson = new GsonBuilder().serializeNulls().create();
+      
+        String json = gson.toJson(b);
 
-        StringBuilder jb = new StringBuilder();
-        String line = null;
-           int i=0;
-           
-       response.setContentType("text/html;charset=UTF-8");
-
-        try {
-            BufferedReader reader = request.getReader();
-            while ((line = reader.readLine()) != null) {
-                jb.append(line);
-            }
-        } catch (IOException e) {
-        }
-            PrintWriter out = response.getWriter();
-                out.println("<h1>Servlet GestioneStatoOrdine at " + i+ "</h1>");
-            
-                i=OrdineDAO.getLastId()+1;
-            
-             OrdineBean ordine= (OrdineBean )new Gson().fromJson(jb.toString(), OrdineBean.class);
-             ordine.setOrdineId(i);
-             ordine.setStato_c(0);
-               OrdineDAO.doSave(ordine);
-                out.println("<h1>Servlet GestioneStatoOrdine at " + i+ "</h1>");
-                ListaOrdine.addOrdine(ordine);
-                       out.println("<h1>Servlet GestioneStatoOrdine at " + i+ "</h1>");  
-         
-          
-             
- 
-
-       
-       
-
+        response.getWriter().write(json);
     }
 
     /**
