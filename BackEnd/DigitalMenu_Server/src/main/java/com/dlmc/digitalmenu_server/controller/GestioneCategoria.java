@@ -56,17 +56,14 @@ public class GestioneCategoria extends HttpServlet {
         List<ProdottoBean> prodotti;
         i = request.getParameter("id");
         a = Integer.parseInt(i);
-        System.out.println(a);
         prodotti = CategoriaDAO.getAllPiattiByCat(a);
         PrintWriter out = response.getWriter();
         out.println("<!DOCTYPE html>");
-         response.setContentType("text/html");
-         out.println("</h1>"+ prodotti.get(1).getNome() + "<h1>Servlet GestioneOrdine at ");
-        
+        response.setContentType("text/html");
+        out.println("</h1>" + prodotti.get(1).getNome() + "<h1>Servlet GestioneOrdine at ");
 
         Gson gson = new GsonBuilder().serializeNulls().create();
         String json = gson.toJson(prodotti.get(0));
-
         response.getWriter().write(json);
 
     }

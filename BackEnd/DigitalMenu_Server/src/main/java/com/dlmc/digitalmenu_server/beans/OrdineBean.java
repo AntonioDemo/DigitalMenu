@@ -16,14 +16,20 @@ public class OrdineBean {
 
  private  int  ordineId;
  private int stato;
- private List<DettaglioOrdineBean> listaProdotti;
+
+ private List<DettagliOrdineBean> listaProdotti;
+
+
+
 
     public OrdineBean(int ordineid, int stato) {
         this.ordineId = ordineid;
         this.stato= stato;
-  this.listaProdotti= new ArrayList<DettaglioOrdineBean>();
-    }
 
+        this.listaProdotti= new ArrayList<DettagliOrdineBean>();
+ 
+
+    }
 
     public int getOrdineId() {
         return ordineId;
@@ -33,16 +39,19 @@ public class OrdineBean {
         this.ordineId = ordineId;
     }
 
-    public List<DettaglioOrdineBean> getListaProdotti() {
+
+    public List<DettagliOrdineBean> getListaProdotti() {
         return listaProdotti;
     }
 
-    public void setListaProdotti(List<DettaglioOrdineBean> listaProdotti) {
-        this.listaProdotti = listaProdotti;
-    }
+    public void setListaProdotti(List<DettagliOrdineBean> listaProdotti) {
 
-    public void setComandaid(int ordineid) {
-        this.ordineId = ordineid;
+   
+    
+
+   
+
+        this.listaProdotti = listaProdotti;
     }
 
     public int getStato() {
