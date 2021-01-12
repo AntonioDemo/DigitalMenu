@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import "./App.css";
 import CarrelloContext from "./context/CarrelloContext";
 import VistaMenu from "./view/VistaMenu";
 
 function App() {
-  let cConttext = useContext(CarrelloContext);
+  const [carrelloContext, setContext] = useState(useContext(CarrelloContext));
   return (
     <div className="App">
-      <CarrelloContext.Provider value={cConttext}>
+      <CarrelloContext.Provider value={[carrelloContext, setContext]}>
         <VistaMenu></VistaMenu>
       </CarrelloContext.Provider>
     </div>

@@ -6,7 +6,7 @@ import CarrelloContext from "../context/CarrelloContext";
 const { Content } = Layout;
 
 function VistaCarrello(props) {
-  const carrelloContext = useContext(CarrelloContext);
+  const [carrelloContext, setContext] = useContext(CarrelloContext);
   return (
     <Layout
       style={{
@@ -62,6 +62,7 @@ function VistaCarrello(props) {
                     />
                   );
                 })}
+                {console.log(carrelloContext.listaProdotti)}
               </Col>
 
               <Col

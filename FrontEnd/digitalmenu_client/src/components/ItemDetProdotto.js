@@ -3,7 +3,7 @@ import { Row, Col, Card, Button } from "antd";
 import CarrelloContext from "../context/CarrelloContext";
 
 function ItemDetProdotto(props) {
-  const carrelloContext = useContext(CarrelloContext);
+  const [carrelloContext, setContext] = useContext(CarrelloContext);
   return (
     <Card
       hidden={props.setHidden}
@@ -49,18 +49,17 @@ function ItemDetProdotto(props) {
           <Button onClick={() => props.funSetHidden()}>Chiudi</Button>
           <Button
             onClick={() => {
-              let a = carrelloContext;
-              a.listaProdotti.push({
-                prodotto: {
-                  nome: "DMA",
-                  prodottoId: 1,
-                  prezzo: 5,
-                },
-                quantita: 2,
-                rimIng: "rimuovi un dma",
+              let obj = new Object();
+              obj.prodotto = { nome: "DMA", prodottoId: 3, prezzo: 7 };
+              obj.quantita = 5;
+              obj.rimIng = "immmmagginne";
+
+              setContext((previousState) => {
+                return { listaProdotti: [...previousState.listaProdotti, obj] };
               });
 
               console.log(carrelloContext);
+              console.log(obj);
               props.funSetHidden();
             }}
           >
