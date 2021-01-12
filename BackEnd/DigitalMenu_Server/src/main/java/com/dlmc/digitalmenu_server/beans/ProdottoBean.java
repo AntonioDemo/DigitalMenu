@@ -16,7 +16,7 @@ public class ProdottoBean {
     	private int prodottoId;
 	private double prezzo;
 	private String foto;
-        private String nome ;
+        private String nome;
         private List<IngredienteBean> listaIngredienti;
         
     public ProdottoBean(int prodottoId, double prezzo, String foto, String nome) {
@@ -24,7 +24,7 @@ public class ProdottoBean {
         this.prezzo = prezzo;
         this.foto = foto;
         this.nome = nome;
-     this.listaIngredienti= new ArrayList<IngredienteBean>();
+        this.listaIngredienti=new ArrayList<IngredienteBean>();
         
     }
 
@@ -55,8 +55,6 @@ public class ProdottoBean {
     public void setFoto(String foto) {
         this.foto = foto;
     }
-
-
 
     public String getNome() {
         return nome;
