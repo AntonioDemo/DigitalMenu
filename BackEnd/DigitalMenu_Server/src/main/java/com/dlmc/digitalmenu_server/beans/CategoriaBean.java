@@ -12,6 +12,19 @@ package com.dlmc.digitalmenu_server.beans;
 public class CategoriaBean {
     private int categoriaId ;
     private String nomeCat;
+    private String foto;
+
+    public CategoriaBean() {
+         //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
 
     public CategoriaBean(int categoriaId, String nomeCat) {
         this.categoriaId = categoriaId;

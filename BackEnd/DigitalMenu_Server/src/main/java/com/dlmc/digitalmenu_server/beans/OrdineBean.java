@@ -16,12 +16,19 @@ public class OrdineBean {
 
  private  int  ordineId;
  private int stato;
+
  private List<DettagliOrdineBean> listaProdotti;
+
+
+
 
     public OrdineBean(int ordineid, int stato) {
         this.ordineId = ordineid;
         this.stato= stato;
+
         this.listaProdotti= new ArrayList<DettagliOrdineBean>();
+ 
+
     }
 
     public int getOrdineId() {
@@ -32,11 +39,18 @@ public class OrdineBean {
         this.ordineId = ordineId;
     }
 
+
     public List<DettagliOrdineBean> getListaProdotti() {
         return listaProdotti;
     }
 
     public void setListaProdotti(List<DettagliOrdineBean> listaProdotti) {
+
+   
+    
+
+   
+
         this.listaProdotti = listaProdotti;
     }
 
