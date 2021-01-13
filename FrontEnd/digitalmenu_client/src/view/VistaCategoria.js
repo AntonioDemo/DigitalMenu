@@ -18,6 +18,7 @@ function VistaCategoria() {
             key={i}
             categoriaId={value.categoriaId}
             nome={value.nomeCat}
+            foto={value.foto}
           />
         );
       })}
