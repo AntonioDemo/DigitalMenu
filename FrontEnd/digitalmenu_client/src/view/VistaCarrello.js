@@ -6,7 +6,7 @@ import CarrelloContext from "../context/CarrelloContext";
 const { Content } = Layout;
 
 function VistaCarrello(props) {
-  const [carrelloContext, setContext] = useContext(CarrelloContext);
+  const [carrelloContext] = useContext(CarrelloContext);
   return (
     <Layout
       style={{
@@ -58,7 +58,7 @@ function VistaCarrello(props) {
                       key={i}
                       nome={value.prodotto.nome}
                       qta={value.quantita}
-                      prezzo={value.prezzo}
+                      prezzo={value.prodotto.prezzo}
                     />
                   );
                 })}

@@ -1,6 +1,8 @@
 import React from "react";
 
 let Carrello = {
+  categoriaSelezionata: 1,
+  metodoDiPagamento: 0,
   listaProdotti: [
     {
       prodotto: {

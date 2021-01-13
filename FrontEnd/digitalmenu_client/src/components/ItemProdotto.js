@@ -20,9 +20,7 @@ function ItemProdotto(props) {
         <Col>
           <img
             alt={"prodotto"}
-            src={
-              "https://i0.wp.com/www.sicilianicreativiincucina.it/wp-content/uploads/2018/06/linguine-con-vongole.jpg?fit=700%2C686&ssl=1"
-            }
+            src={props.foto}
             style={{
               width: "80%",
               display: "block",
@@ -34,7 +32,7 @@ function ItemProdotto(props) {
       </Row>
       <Row style={{ margin: "5px" }}>
         <Col style={{ margin: "auto" }}>
-          <h3>Titolo prodotto{props.nome}</h3>
+          <h3>{props.nome}</h3>
         </Col>
         <div
           style={{
@@ -49,7 +47,7 @@ function ItemProdotto(props) {
             zindex: "1000",
           }}
         >
-          <h3>15,55€{props.prezzo}</h3>
+          <h3>{props.prezzo}</h3>
         </div>
       </Row>
     </Card>

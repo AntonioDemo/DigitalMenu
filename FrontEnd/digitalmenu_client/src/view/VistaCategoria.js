@@ -13,7 +13,14 @@ function VistaCategoria() {
   return (
     <div>
       {categorie.map((value, i) => {
-        return <ItemCategoria key={i} nome={value.id} />;
+        console.log(categorie);
+        return (
+          <ItemCategoria
+            key={i}
+            categoriaId={value.categoriaId}
+            nome={value.nomeCat}
+          />
+        );
       })}
     </div>
   );

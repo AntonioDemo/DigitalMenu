@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Row, Col, Card } from "antd";
+import CarrelloContext from "../context/CarrelloContext";
 
 function ItemCategoria(props) {
+  const [carrelloContext, setContext] = useContext(CarrelloContext);
   return (
     <Card
-      onClick={() => alert("cioa")}
+      onClick={() => {
+        let contestoClone = { ...carrelloContext };
+        contestoClone.categoriaSelezionata = props.categoriaId;
+        setContext(contestoClone);
+      }}
       hoverable
       style={{ margin: "5px" }}
       bodyStyle={{ padding: "10px" }}

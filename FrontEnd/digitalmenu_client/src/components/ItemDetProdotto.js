@@ -1,9 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Row, Col, Card, Button } from "antd";
 import CarrelloContext from "../context/CarrelloContext";
+import Title from "antd/lib/typography/Title";
+import { Switch } from "antd";
+import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 
 function ItemDetProdotto(props) {
   const [carrelloContext, setContext] = useContext(CarrelloContext);
+  const [qta, setQta] = useState(1);
   return (
     <Card
       hidden={props.setHidden}
@@ -15,7 +19,7 @@ function ItemDetProdotto(props) {
         zIndex: "1000",
         display: "inline-block",
         width: "80%",
-        height: "90%",
+        height: "80%",
         margin: "5px",
         padding: "0px",
         boxShadow:
@@ -23,15 +27,16 @@ function ItemDetProdotto(props) {
       }}
     >
       <Row>
-        <Col>
+        <Col
+          style={{
+            width: "100%",
+          }}
+        >
           <img
             alt={"prodotto"}
-            src={
-              "https://i0.wp.com/www.sicilianicreativiincucina.it/wp-content/uploads/2018/06/linguine-con-vongole.jpg?fit=700%2C686&ssl=1"
-            }
+            src={props.foto}
             style={{
-              width: "80%",
-              display: "block",
+              width: "30vh",
               marginLeft: "auto",
               marginRight: "auto",
             }}
@@ -40,18 +45,69 @@ function ItemDetProdotto(props) {
       </Row>
       <Row style={{ margin: "5px" }}>
         <Col style={{ margin: "auto" }}>
-          <h3>{props.nome}</h3>
-          <h3>{props.prezzo}</h3>
-          <h3>Lista Ingredienti</h3>
+          <Title>{props.nome}</Title>
+        </Col>
+      </Row>
+      <Row>
+        <Col style={{ width: "100%", textAlign: "left", marginLeft: "10px" }}>
+          <Title level={2}>Lista Ingredienti</Title>
           {props.listIng.map((value, i) => {
-            return <p key={i}> {value.nomeIng} </p>;
+            return (
+              <p key={i}>
+                {value.nomeIng}
+                {value.isRimovibile === true && (
+                  <Switch
+                    checkedChildren={<CheckOutlined />}
+                    unCheckedChildren={<CloseOutlined />}
+                    defaultChecked
+                  />
+                )}
+              </p>
+            );
           })}
-          <Button onClick={() => props.funSetHidden()}>Chiudi</Button>
+        </Col>
+      </Row>
+      <Row style={{ margin: "5px" }}>
+        <Col style={{ width: "50%" }}>
           <Button
             onClick={() => {
-              let obj = new Object();
+              if (qta !== 1) {
+                setQta(qta - 1);
+              }
+            }}
+          >
+            -
+          </Button>
+          <Button>quantita {qta}</Button>
+          <Button
+            onClick={() => {
+              setQta(qta + 1);
+            }}
+          >
+            +
+          </Button>
+        </Col>
+        <Col style={{ width: "50%" }}>
+          <Title level={3}>Prezzo {props.prezzo}€ </Title>
+        </Col>
+      </Row>
+      <Row style={{ margin: "5px" }}>
+        <Col style={{ width: "50%" }}>
+          <Button
+            onClick={() => {
+              setQta(1);
+              props.funSetHidden();
+            }}
+          >
+            Chiudi
+          </Button>
+        </Col>
+        <Col style={{ width: "50%" }}>
+          <Button
+            onClick={() => {
+              let obj = {};
               obj.prodotto = { nome: "DMA", prodottoId: 3, prezzo: 7 };
-              obj.quantita = 5;
+              obj.quantita = qta;
               obj.rimIng = "immmmagginne";
 
               setContext((previousState) => {
@@ -60,6 +116,7 @@ function ItemDetProdotto(props) {
 
               console.log(carrelloContext);
               console.log(obj);
+              setQta(1);
               props.funSetHidden();
             }}
           >

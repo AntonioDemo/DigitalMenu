@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ItemDetProdotto from "../components/ItemDetProdotto";
 import ItemProdotto from "../components/ItemProdotto";
+import CarrelloContext from "../context/CarrelloContext";
 import DigitalMenuService from "../services/DigitalMenuService";
 
 function VistaProdotti() {
+  const [carrelloContext] = useContext(CarrelloContext);
   const [prodotti, setProdotti] = useState([]);
+  const [dettProdotto, setDetProdotto] = useState([]);
   const [isHidden, setisHidden] = useState(true);
-
+  const [idp, setidp] = useState();
   //TEst
   let detProdotto = {
     prodottoId: 2,
@@ -53,10 +56,19 @@ function VistaProdotti() {
     }
   }
 
+  function Prova(props) {
+    useEffect(() => {
+      let a = DigitalMenuService.getProdotto(props.id);
+      a.then((res) => setDetProdotto(res.data));
+    }, []);
+  }
+
   useEffect(() => {
-    let a = DigitalMenuService.getAllProdottiByCategoria();
+    let a = DigitalMenuService.getAllProdottiByCategoria(
+      carrelloContext.categoriaSelezionata
+    );
     a.then((res) => setProdotti(res.data));
-  }, []);
+  }, [carrelloContext.categoriaSelezionata]);
 
   return (
     <div>
@@ -66,14 +78,28 @@ function VistaProdotti() {
         nome={detProdotto.nome}
         prezzo={detProdotto.prezzo}
         listIng={detProdotto.listaIngredienti}
+        foto={detProdotto.foto}
       />
+      {console.log(prodotti)}
       {prodotti.map((value, i) => {
         return (
-          <ItemProdotto
+          <div
             key={i}
-            funSetHidden={mostraDettaglioProdotto}
-            nome={value.id}
-          />
+            onClick={() => {
+              <Prova id={value.prodottoId}></Prova>;
+              setidp(value.prodottoId);
+              alert(value.prodottoId);
+              console.log("det proddd", dettProdotto);
+            }}
+          >
+            <ItemProdotto
+              key={i}
+              funSetHidden={mostraDettaglioProdotto}
+              nome={value.nome}
+              foto={value.foto}
+              prezzo={value.prezzo}
+            />
+          </div>
         );
       })}
     </div>
