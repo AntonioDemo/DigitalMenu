@@ -30,15 +30,9 @@ class DigitalMenuService {
   }
 
   // SEND
-  inviaProva() {
-    return axios({
-      method: "post",
-      url: "https://jsonplaceholder.typicode.com/posts",
-      data: {
-        title: "foo",
-        body: "bar",
-        userId: 1,
-      },
+  inviaProva(json) {
+    return axios.post(URL + "GestioneOrdine", {
+      data: json,
     });
   }
 }

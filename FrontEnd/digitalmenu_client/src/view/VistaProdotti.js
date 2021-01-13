@@ -39,6 +39,7 @@ function VistaProdotti() {
       {console.log("DETTAGLIO PRODOTTO STATE", dettProdotto)}
       <ItemDetProdotto
         funSetHidden={mostraDettaglioProdotto}
+        prodottoId={dettProdotto.prodottoId}
         setHidden={isHidden}
         nome={dettProdotto.nome}
         prezzo={dettProdotto.prezzo}

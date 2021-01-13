@@ -3,6 +3,7 @@ import { Row, Col, Button } from "antd";
 import { Layout } from "antd";
 import ItemRigaProdotto from "../components/ItemRigaProdotto";
 import CarrelloContext from "../context/CarrelloContext";
+import DigitalMenuService from "../services/DigitalMenuService";
 const { Content } = Layout;
 
 function VistaCarrello(props) {
@@ -52,16 +53,18 @@ function VistaCarrello(props) {
                   overflow: "auto",
                 }}
               >
-                {carrelloContext.listaProdotti.map((value, i) => {
-                  return (
-                    <ItemRigaProdotto
-                      key={i}
-                      nome={value.prodotto.nome}
-                      qta={value.quantita}
-                      prezzo={value.prodotto.prezzo}
-                    />
-                  );
-                })}
+                {carrelloContext.listaProdotti !== undefined &&
+                  carrelloContext.listaProdotti.map((value, i) => {
+                    return (
+                      <ItemRigaProdotto
+                        key={i}
+                        prodottoId={value.prodotto.prodottoId}
+                        nome={value.prodotto.nome}
+                        qta={value.quantita}
+                        prezzo={value.prodotto.prezzo}
+                      />
+                    );
+                  })}
                 {console.log(carrelloContext.listaProdotti)}
               </Col>
 
@@ -85,7 +88,7 @@ function VistaCarrello(props) {
                     }}
                   >
                     <h1>Totale:</h1>
-                    <h1>100,00€</h1>
+                    <h1>{carrelloContext.prezzoTotale}€</h1>
                   </Col>
 
                   <Col
@@ -100,6 +103,15 @@ function VistaCarrello(props) {
                         width: "90%",
                         height: "90%",
                       }}
+                      onClick={
+                        console.log(carrelloContext)
+                        /*
+                        DigitalMenuService.inviaProva(
+                        carrelloContext
+                      ).then((res) => {
+                        console.log(carrelloContext);
+                      })*/
+                      }
                     >
                       PAGA
                     </Button>

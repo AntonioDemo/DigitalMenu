@@ -89,7 +89,7 @@ function ItemDetProdotto(props) {
           </Button>
         </Col>
         <Col style={{ width: "50%" }}>
-          <Title level={3}>Prezzo {props.prezzo}€ </Title>
+          <Title level={3}>Prezzo {props.prezzo * qta}€ </Title>
         </Col>
       </Row>
       <Row style={{ margin: "5px" }}>
@@ -107,14 +107,27 @@ function ItemDetProdotto(props) {
           <Button
             onClick={() => {
               let obj = {};
-              obj.prodotto = { nome: "DMA", prodottoId: 3, prezzo: 7 };
+              obj.prodotto = {
+                nome: props.nome,
+                prodottoId: props.prodottoId,
+                prezzo: props.prezzo * qta,
+              };
               obj.quantita = qta;
-              obj.rimIng = "immmmagginne";
+              obj.rimIng = "esempio ingrediente eliminato ";
 
               setContext((previousState) => {
-                return { listaProdotti: [...previousState.listaProdotti, obj] };
+                return {
+                  prezzoTotale: previousState.prezzoTotale + props.prezzo * qta,
+                  listaProdotti: [...previousState.listaProdotti, obj],
+                };
               });
 
+              /*
+              let contestoClone = { ...carrelloContext };
+              contestoClone.prezzoTotale =
+                contestoClone.prezzoTotale + props.prezzo * qta;
+              setContext(contestoClone);
+*/
               console.log(carrelloContext);
               console.log(obj);
               setQta(1);

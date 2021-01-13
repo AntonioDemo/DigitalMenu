@@ -4,26 +4,8 @@ let Carrello = {
   categoriaSelezionata: 1,
   prodottoSelezionato: 1,
   metodoDiPagamento: 0,
-  listaProdotti: [
-    {
-      prodotto: {
-        nome: "DMA",
-        prodottoId: 1,
-        prezzo: 5,
-      },
-      quantita: 2,
-      rimIng: "rimuovi un dma",
-    },
-    {
-      prodotto: {
-        nome: "DMA 2 ",
-        prodottoId: 2,
-        prezzo: 6,
-      },
-      quantita: 100,
-      rimIng: "dma è bello",
-    },
-  ],
+  prezzoTotale: 0.0,
+  listaProdotti: [],
 };
 
 const CarrelloContext = React.createContext(Carrello);
