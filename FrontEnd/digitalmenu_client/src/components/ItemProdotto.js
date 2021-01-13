@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Row, Col, Card } from "antd";
+import CarrelloContext from "../context/CarrelloContext";
 
 function ItemProdotto(props) {
+  const [carrelloContext, setContext] = useContext(CarrelloContext);
   return (
     <Card
       onClick={() => {
+        let contestoClone = { ...carrelloContext };
+        contestoClone.prodottoSelezionato = props.id;
+        setContext(contestoClone);
+        console.log("CARRELLO CONTEXT ITEMPRODOTTO", carrelloContext);
         props.funSetHidden();
       }}
       hoverable
@@ -20,7 +26,7 @@ function ItemProdotto(props) {
         <Col>
           <img
             alt={"prodotto"}
-            src={props.foto}
+            src={"http://localhost:8080/" + props.foto}
             style={{
               width: "80%",
               display: "block",
@@ -47,7 +53,7 @@ function ItemProdotto(props) {
             zindex: "1000",
           }}
         >
-          <h3>{props.prezzo}</h3>
+          <h3>{props.prezzo}€</h3>
         </div>
       </Row>
     </Card>

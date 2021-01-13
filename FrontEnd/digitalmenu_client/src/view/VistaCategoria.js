@@ -13,7 +13,6 @@ function VistaCategoria() {
   return (
     <div>
       {categorie.map((value, i) => {
-        console.log(categorie);
         return (
           <ItemCategoria
             key={i}

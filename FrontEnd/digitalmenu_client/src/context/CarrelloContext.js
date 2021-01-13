@@ -2,6 +2,7 @@ import React from "react";
 
 let Carrello = {
   categoriaSelezionata: 1,
+  prodottoSelezionato: 1,
   metodoDiPagamento: 0,
   listaProdotti: [
     {

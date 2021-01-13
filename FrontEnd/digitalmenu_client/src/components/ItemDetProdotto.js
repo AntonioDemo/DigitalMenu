@@ -34,7 +34,7 @@ function ItemDetProdotto(props) {
         >
           <img
             alt={"prodotto"}
-            src={props.foto}
+            src={"http://localhost:8080/" + props.foto}
             style={{
               width: "30vh",
               marginLeft: "auto",
@@ -51,20 +51,21 @@ function ItemDetProdotto(props) {
       <Row>
         <Col style={{ width: "100%", textAlign: "left", marginLeft: "10px" }}>
           <Title level={2}>Lista Ingredienti</Title>
-          {props.listIng.map((value, i) => {
-            return (
-              <p key={i}>
-                {value.nomeIng}
-                {value.isRimovibile === true && (
-                  <Switch
-                    checkedChildren={<CheckOutlined />}
-                    unCheckedChildren={<CloseOutlined />}
-                    defaultChecked
-                  />
-                )}
-              </p>
-            );
-          })}
+          {props.listIng !== undefined &&
+            props.listIng.map((value, i) => {
+              return (
+                <p key={i}>
+                  {value.nomeIng}
+                  {value.isRimovibile == true && (
+                    <Switch
+                      checkedChildren={<CheckOutlined />}
+                      unCheckedChildren={<CloseOutlined />}
+                      defaultChecked
+                    />
+                  )}
+                </p>
+              );
+            })}
         </Col>
       </Row>
       <Row style={{ margin: "5px" }}>
