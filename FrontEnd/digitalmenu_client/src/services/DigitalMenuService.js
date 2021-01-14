@@ -29,12 +29,15 @@ class DigitalMenuService {
     });
   }
 
-  // SEND
-  inviaProva(json) {
-    return axios.post(URL + "GestioneOrdine", {
+  /* SEND*/
+
+  inviaProva(json, id) {
+    axios({
+      method: "post",
+      url: URL + "GestioneOrdine?idPagamento=" + id,
+      headers: {},
       data: json,
     });
   }
 }
-
 export default new DigitalMenuService();

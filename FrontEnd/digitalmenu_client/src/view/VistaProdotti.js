@@ -36,7 +36,6 @@ function VistaProdotti() {
 
   return (
     <div>
-      {console.log("DETTAGLIO PRODOTTO STATE", dettProdotto)}
       <ItemDetProdotto
         funSetHidden={mostraDettaglioProdotto}
         prodottoId={dettProdotto.prodottoId}
@@ -46,7 +45,6 @@ function VistaProdotti() {
         listIng={dettProdotto.listaIngredienti}
         foto={dettProdotto.foto}
       />
-      {console.log(prodotti)}
       {prodotti.map((value, i) => {
         return (
           <ItemProdotto

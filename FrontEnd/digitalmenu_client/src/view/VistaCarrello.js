@@ -8,6 +8,7 @@ const { Content } = Layout;
 
 function VistaCarrello(props) {
   const [carrelloContext] = useContext(CarrelloContext);
+  console.log("VISTACARRELLO CONTEXT=", carrelloContext);
   return (
     <Layout
       style={{
@@ -65,7 +66,10 @@ function VistaCarrello(props) {
                       />
                     );
                   })}
-                {console.log(carrelloContext.listaProdotti)}
+                {console.log(
+                  "V.CARRELLO CONTEXT DOPO RENDER ITEMpRODOT ",
+                  carrelloContext
+                )}
               </Col>
 
               <Col
@@ -98,20 +102,17 @@ function VistaCarrello(props) {
                     }}
                   >
                     <Button
+                      onClick={() => {
+                        let b = DigitalMenuService.inviaProva(
+                          carrelloContext,
+                          carrelloContext.metodoDiPagamento
+                        );
+                      }}
                       type="primary"
                       style={{
                         width: "90%",
                         height: "90%",
                       }}
-                      onClick={
-                        console.log(carrelloContext)
-                        /*
-                        DigitalMenuService.inviaProva(
-                        carrelloContext
-                      ).then((res) => {
-                        console.log(carrelloContext);
-                      })*/
-                      }
                     >
                       PAGA
                     </Button>

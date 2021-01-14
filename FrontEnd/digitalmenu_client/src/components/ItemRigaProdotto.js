@@ -5,11 +5,8 @@ import { DeleteOutlined } from "@ant-design/icons";
 import CarrelloContext from "../context/CarrelloContext";
 
 function deleteProdotto(lista, indice) {
-  console.log("LISTA:", lista);
-  console.log("indice:", indice);
   let prezzoDaSottrarre = 0;
   for (var i = 0; i < lista.length; i++) {
-    console.log("LISTA for ", lista);
     if (lista[i].prodotto.prodottoId === indice) {
       prezzoDaSottrarre = lista[i].prodotto.prezzo;
       lista.splice(i, 1);
@@ -44,6 +41,14 @@ function ItemRigaProdotto(props) {
 
             contestoClone.prezzoTotale -= prezzoDaSottrarre;
             setContext(contestoClone);
+            console.log(
+              "CONTEXT CLONE IN ITEMRIGA DOPO  FUN DELETEPRODOTTO:",
+              contestoClone
+            );
+            console.log(
+              "CONTEXT  IN ITEMRIGA DOPO  FUN DELETEPRODOTTO:",
+              carrelloContext
+            );
           }}
           danger
           type="primary"

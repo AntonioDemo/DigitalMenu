@@ -113,23 +113,19 @@ function ItemDetProdotto(props) {
                 prezzo: props.prezzo * qta,
               };
               obj.quantita = qta;
-              obj.rimIng = "esempio ingrediente eliminato ";
+              obj.deleteing = "esempio ingrediente eliminato ";
 
               setContext((previousState) => {
                 return {
+                  categoriaSelezionata: previousState.categoriaSelezionata,
+                  prodottoSelezionato: previousState.prodottoSelezionato,
+                  metodoDiPagamento: previousState.metodoDiPagamento,
                   prezzoTotale: previousState.prezzoTotale + props.prezzo * qta,
                   listaProdotti: [...previousState.listaProdotti, obj],
                 };
               });
 
-              /*
-              let contestoClone = { ...carrelloContext };
-              contestoClone.prezzoTotale =
-                contestoClone.prezzoTotale + props.prezzo * qta;
-              setContext(contestoClone);
-*/
-              console.log(carrelloContext);
-              console.log(obj);
+              console.log("CONTEXT IN ITEMDETORODOTTO", carrelloContext);
               setQta(1);
               props.funSetHidden();
             }}
