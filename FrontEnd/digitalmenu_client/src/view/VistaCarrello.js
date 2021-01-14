@@ -1,13 +1,29 @@
-import React, { useContext } from "react";
-import { Row, Col, Button } from "antd";
+import React, { useContext, useState } from "react";
+import { Row, Col, Button, Modal, AutoComplete } from "antd";
 import { Layout } from "antd";
 import ItemRigaProdotto from "../components/ItemRigaProdotto";
 import CarrelloContext from "../context/CarrelloContext";
 import DigitalMenuService from "../services/DigitalMenuService";
 const { Content } = Layout;
 
+function countDown(messaggio) {
+  let secondsToGo = 5;
+  const modal = Modal.success({
+    title: messaggio,
+    content: `Ritira il tuo ordine appena è pronto.`,
+  });
+  const timer = setInterval(() => {
+    secondsToGo -= 1;
+  }, 1000);
+  setTimeout(() => {
+    clearInterval(timer);
+    modal.destroy();
+  }, secondsToGo * 1000);
+}
+
 function VistaCarrello(props) {
-  const [carrelloContext] = useContext(CarrelloContext);
+  const [carrelloContext, setContext] = useContext(CarrelloContext);
+  const [visible, setVisible] = useState(false);
   console.log("VISTACARRELLO CONTEXT=", carrelloContext);
   return (
     <Layout
@@ -103,10 +119,7 @@ function VistaCarrello(props) {
                   >
                     <Button
                       onClick={() => {
-                        let b = DigitalMenuService.inviaProva(
-                          carrelloContext,
-                          carrelloContext.metodoDiPagamento
-                        );
+                        setVisible(true);
                       }}
                       type="primary"
                       style={{
@@ -116,6 +129,80 @@ function VistaCarrello(props) {
                     >
                       PAGA
                     </Button>
+
+                    <Modal
+                      title=""
+                      centered
+                      visible={visible}
+                      onOk={() => setVisible(false)}
+                      onCancel={() => setVisible(false)}
+                      width={1000}
+                      style={{ textAlign: "center" }}
+                      okButtonProps={{ hidden: true }}
+                      cancelButtonProps={{ hidden: true }}
+                    >
+                      <Button
+                        onClick={() => {
+                          let b = DigitalMenuService.inviaProva(
+                            carrelloContext,
+                            1
+                          );
+                          setVisible(false);
+                          let Carrello = {
+                            categoriaSelezionata: 1,
+                            prodottoSelezionato: 1,
+                            metodoDiPagamento: 0,
+                            prezzoTotale: 0.0,
+                            listaProdotti: [],
+                          };
+
+                          setContext(Carrello);
+                          countDown("Completa il pagamento alla cassa");
+                        }}
+                        type="primary"
+                        style={{
+                          marginRight: "5px",
+                          width: "250px",
+                          height: "250px",
+                        }}
+                      >
+                        PAGA IN CONTANTI
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          let b = DigitalMenuService.inviaProva(
+                            carrelloContext,
+                            0
+                          );
+                          setVisible(false);
+
+                          let Carrello = {
+                            categoriaSelezionata: 1,
+                            prodottoSelezionato: 1,
+                            metodoDiPagamento: 0,
+                            prezzoTotale: 0.0,
+                            listaProdotti: [],
+                          };
+
+                          setContext(Carrello);
+
+                          console.log(
+                            "CARRELLO CONTEXT ITEMPRODOTTO",
+                            carrelloContext
+                          );
+
+                          countDown("Pagamento effettuato con successo");
+                        }}
+                        type="primary"
+                        style={{
+                          marginLeft: "5px",
+                          width: "250px",
+                          height: "250px",
+                        }}
+                      >
+                        PAGA CON CARTA
+                      </Button>
+                    </Modal>
                   </Col>
                 </Row>
               </Col>
