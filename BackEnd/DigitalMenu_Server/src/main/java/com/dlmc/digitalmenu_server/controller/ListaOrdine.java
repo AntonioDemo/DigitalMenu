@@ -30,6 +30,9 @@ public    class ListaOrdine {
        int i;
         for(i=0; i<listaOrdine.size() && listaOrdine.get(i).getOrdineId() != idordine; i++) 
               ;
+        if(stato > 2)
+            listaOrdine.remove(i);
+        else
         listaOrdine.get(i).setStato_c(stato);       
     }
     
