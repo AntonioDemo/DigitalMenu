@@ -89,7 +89,7 @@ public class GestioneOrdine extends HttpServlet {
              else
                  ordine.setStato_c(0);
                OrdineDAO.doSave(ordine);
-                out.println("<h1>Servlet GestioneStatoOrdine at " + ordine.getListaProdotti().get(1).getProdotto().getNome()+ "</h1>");
+    
                 ListaOrdine.addOrdine(ordine);
                        out.println("<h1>Servlet GestioneStatoOrdine at " + i+ "</h1>");  
          
