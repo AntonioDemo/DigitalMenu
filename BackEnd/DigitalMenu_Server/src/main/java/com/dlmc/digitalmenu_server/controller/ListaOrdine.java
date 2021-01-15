@@ -16,7 +16,7 @@ import java.util.List;
  */
 public    class ListaOrdine {
 
-       static private List<OrdineBean> listaOrdine =new ArrayList<OrdineBean>();
+       static private List<OrdineBean> listaOrdine =OrdineDAO.caricaordini();
     public static void addOrdine(OrdineBean p) {
         listaOrdine.add(p);
     }
@@ -33,7 +33,7 @@ public    class ListaOrdine {
         listaOrdine.get(i).setStato_c(stato);       
     }
     
-    public static void setordini(){
+   /* public static void setordini(){
         listaOrdine=OrdineDAO.caricaordini();
-    }
+    }*/
 }

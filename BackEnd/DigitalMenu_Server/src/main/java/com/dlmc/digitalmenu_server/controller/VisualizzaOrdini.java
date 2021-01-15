@@ -63,8 +63,8 @@ public class VisualizzaOrdini extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- if(ListaOrdine.returnOrdine().size()==0)
-        ListaOrdine.setordini();
+/* if(ListaOrdine.returnOrdine().size()==0)
+        ListaOrdine.setordini();*/
        
         Gson gson = new GsonBuilder().serializeNulls().create();
 

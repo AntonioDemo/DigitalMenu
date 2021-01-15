@@ -66,8 +66,8 @@ public class VisualizzaOrdiniPagati extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                 
-         if(ListaOrdine.returnOrdine().size()==0)
-        ListaOrdine.setordini();
+       /*  if(ListaOrdine.returnOrdine().size()==0)
+        ListaOrdine.setordini();*/
          List<OrdineBean> ListOrdi = new ArrayList<OrdineBean>();
          for(int i=0;i<ListaOrdine.returnOrdine().size();i++)
              if(ListaOrdine.returnOrdine().get(i).getStato()>0 &&ListaOrdine.returnOrdine().get(i).getStato()<3)
