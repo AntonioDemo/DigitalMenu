@@ -36,7 +36,6 @@ function VistaCarrello(props) {
           height: "auto",
           padding: "0px",
           margin: "0px",
-          backgroundColor: "red",
         }}
       >
         <h2
@@ -53,7 +52,6 @@ function VistaCarrello(props) {
           <Content
             style={{
               height: "100%",
-              backgroundColor: "green",
             }}
           >
             <Row
@@ -66,7 +64,6 @@ function VistaCarrello(props) {
                 style={{
                   width: "80%",
                   height: "100%",
-                  backgroundColor: "red",
                   overflow: "auto",
                 }}
               >
@@ -91,7 +88,6 @@ function VistaCarrello(props) {
               <Col
                 style={{
                   width: "20%",
-                  backgroundColor: "yellow",
                 }}
               >
                 <Row

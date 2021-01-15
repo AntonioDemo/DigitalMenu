@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const IP = "127.0.0.1";
+const IP = "localhost";
 
 const URL = "http://" + IP + ":8080/DigitalMenu_Server/";
 
