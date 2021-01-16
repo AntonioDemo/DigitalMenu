@@ -68,13 +68,13 @@ public class VisualizzaOrdiniPagati extends HttpServlet {
                 
        /*  if(ListaOrdine.returnOrdine().size()==0)
         ListaOrdine.setordini();*/
-         List<OrdineBean> ListOrdi = new ArrayList<OrdineBean>();
+         List<OrdineBean> listOrdi = new ArrayList<OrdineBean>();
          for(int i=0;i<ListaOrdine.returnOrdine().size();i++)
              if(ListaOrdine.returnOrdine().get(i).getStato()>0 &&ListaOrdine.returnOrdine().get(i).getStato()<3)
-                 ListOrdi.add(ListaOrdine.returnOrdine().get(i));
+                 listOrdi.add(ListaOrdine.returnOrdine().get(i));
          Gson gson = new GsonBuilder().serializeNulls().create();
 
-        String json = gson.toJson(ListOrdi);
+        String json = gson.toJson(listOrdi);
 
         response.getWriter().write(json);
     }

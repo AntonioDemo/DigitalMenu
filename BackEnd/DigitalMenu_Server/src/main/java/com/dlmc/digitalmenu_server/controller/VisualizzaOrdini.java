@@ -10,6 +10,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -65,10 +67,13 @@ public class VisualizzaOrdini extends HttpServlet {
             throws ServletException, IOException {
 /* if(ListaOrdine.returnOrdine().size()==0)
         ListaOrdine.setordini();*/
-       
+          List<OrdineBean> listOrdi = new ArrayList<OrdineBean>();
+         for(int i=0;i<ListaOrdine.returnOrdine().size();i++)
+             if(ListaOrdine.returnOrdine().get(i).getStato()<3)
+                 listOrdi.add(ListaOrdine.returnOrdine().get(i));
         Gson gson = new GsonBuilder().serializeNulls().create();
 
-        String json = gson.toJson(ListaOrdine.returnOrdine());
+        String json = gson.toJson(listOrdi);
 
         response.getWriter().write(json);
     }
