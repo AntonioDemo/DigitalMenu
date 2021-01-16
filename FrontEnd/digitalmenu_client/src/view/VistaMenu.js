@@ -38,7 +38,6 @@ function VistaMenu() {
       <Footer
         style={{
           height: "25vh",
-          backgroundColor: "orange",
           padding: "5px",
         }}
       >

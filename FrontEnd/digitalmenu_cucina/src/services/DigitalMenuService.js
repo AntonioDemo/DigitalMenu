@@ -29,6 +29,17 @@ class DigitalMenuService {
     });
   }
 
+  getOrdini() {
+    return axios.post(URL + "GestioneCodaOrdini", {});
+  }
+
+  setStato(id) {
+    return axios.get(URL + "GestoreStatoOrdine", {
+      params: {
+        id: id,
+      },
+    });
+  }
   /* SEND*/
 
   inviaProva(json, id) {
