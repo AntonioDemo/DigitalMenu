@@ -16,23 +16,46 @@ import java.util.List;
  */
 public    class ListaOrdine {
 
-       static private List<OrdineBean> listaOrdine =new ArrayList<OrdineBean>();
+    /**
+     *
+     */
+    static private List<OrdineBean> listaOrdine =new ArrayList<OrdineBean>();
+
+    /**
+     *
+     * @param p
+     */
     public static void addOrdine(OrdineBean p) {
         listaOrdine.add(p);
     }
 
+    /**
+     *
+     * @return
+     */
     public static List<OrdineBean> returnOrdine() {
 
      return   listaOrdine;
     }
     
+    /**
+     *
+     * @param idordine
+     * @param stato
+     */
     public static void setstato(int idordine, int stato){
        int i;
         for(i=0; i<listaOrdine.size() && listaOrdine.get(i).getOrdineId() != idordine; i++) 
               ;
-        listaOrdine.get(i).setStato_c(stato);       
+        if(stato > 2)
+            listaOrdine.remove(i);
+        else
+            listaOrdine.get(i).setStato_c(stato);     
     }
     
+    /**
+     *
+     */
     public static void setordini(){
         listaOrdine=OrdineDAO.caricaordini();
     }

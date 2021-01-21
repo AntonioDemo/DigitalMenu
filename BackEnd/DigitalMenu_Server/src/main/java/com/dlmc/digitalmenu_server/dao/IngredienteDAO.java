@@ -20,6 +20,11 @@ import java.util.List;
  */
 public class IngredienteDAO {
 
+    /**
+     *
+     * @param idProdotto
+     * @return
+     */
     public static List<IngredienteBean> getAllIngredientiByPro(int idProdotto) {
         List<IngredienteBean> ingrediente = new ArrayList<IngredienteBean>();
 

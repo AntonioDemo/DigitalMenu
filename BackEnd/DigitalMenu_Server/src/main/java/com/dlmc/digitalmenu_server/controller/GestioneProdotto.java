@@ -25,10 +25,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ *
+ * @author alby
+ */
 @WebServlet("/GestioneProdotto")
 public class GestioneProdotto extends HttpServlet {
 
+    /**
+     *
+     */
     static Connection currentCon = null;
+
+    /**
+     *
+     */
     static ResultSet rs;
 
     /**
@@ -37,8 +48,10 @@ public class GestioneProdotto extends HttpServlet {
      *
      * @param request servlet request
      * @param response servlet response
+     * @custom.precondition
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {

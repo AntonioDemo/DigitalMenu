@@ -24,8 +24,16 @@ import java.util.logging.Logger;
  * @author Gerardo
  */
 public class OrdineDAO {
-static Connection currentCon = null;
 
+    /**
+     *
+     */
+    static Connection currentCon = null;
+
+    /**
+     *
+     * @param b
+     */
     public static void doSave(OrdineBean b) {
 
         List<DettagliOrdineBean> p = b.getListaProdotti();
@@ -51,8 +59,8 @@ static Connection currentCon = null;
                 pss.setInt(1, bean.getProdotto().getProdottoId());
                 pss.setInt(2, id);
                 pss.setDouble(3, bean.getProdotto().getPrezzo());
-                pss.setString(4, bean.getRimIng());
-                pss.setInt(5, bean.getQuantita());
+                pss.setString(4, bean.getIngedienteRimosso());
+                pss.setInt(5, bean.getquantita());
 
                 pss.executeUpdate();
             }
@@ -71,6 +79,10 @@ static Connection currentCon = null;
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public static int getLastId()  {
 
         String sql = "  SELECT max(idordine) FROM ordine;";
@@ -95,6 +107,11 @@ static Connection currentCon = null;
         return id;
     }
   
+    /**
+     *
+     * @param id
+     * @return
+     */
     public static int getstato(int id) {
 
         int stat = -1;
@@ -122,6 +139,11 @@ static Connection currentCon = null;
         return stat;
     }
 
+    /**
+     *
+     * @param id
+     * @param stato
+     */
     public static void setstato(int id, int stato) {
 
         String sql = "UPDATE `digitalmenu`.`ordine` SET `stato` = ? WHERE (`idordine` = ?);";
@@ -143,6 +165,10 @@ static Connection currentCon = null;
 
     }
 
+    /**
+     *
+     * @return
+     */
     public static List<OrdineBean> caricaordini() {
         int i = 0;
         List<OrdineBean> ListOrdi = new ArrayList<OrdineBean>();
@@ -166,11 +192,12 @@ static Connection currentCon = null;
                 DettagliOrdineBean dettagliordine = new DettagliOrdineBean(answers.getInt(4), answers.getString(5), prodo);
                 ListDett.add(dettagliordine);
                 if (ListOrdi.size() > 0)
-                    if (answers.getInt(2) == ListOrdi.get(ListOrdi.size() - 1).getOrdineId()) {
+                    if (answers.getInt(2) == ListOrdi.get(ListOrdi.size() - 1).getOrdineId() ) {
                         for (int v = 0; v < (ListOrdi.get(ListOrdi.size() - 1).getListaProdotti().size()); v++)
                             ListDett.add(ListOrdi.get(ListOrdi.size() - 1).getListaProdotti().get(v));
                         ListOrdi.remove(ListOrdi.size() - 1);
                     }
+                
                 ordine.setListaProdotti(ListDett);
                 ListOrdi.add(ordine);
             }

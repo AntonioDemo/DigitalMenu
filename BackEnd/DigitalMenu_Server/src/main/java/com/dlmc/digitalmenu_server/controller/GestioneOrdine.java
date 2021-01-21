@@ -46,6 +46,13 @@ public class GestioneOrdine extends HttpServlet {
         
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -82,7 +89,7 @@ public class GestioneOrdine extends HttpServlet {
             
                 i=OrdineDAO.getLastId()+1;
             
-             OrdineBean ordine= (OrdineBean )new Gson().fromJson(jb.toString(), OrdineBean.class);
+             OrdineBean ordine= (OrdineBean)new Gson().fromJson(jb.toString(), OrdineBean.class);
              ordine.setOrdineId(i);
              ordine.setStato_c(0);
                OrdineDAO.doSave(ordine);
@@ -90,13 +97,6 @@ public class GestioneOrdine extends HttpServlet {
                 ListaOrdine.addOrdine(ordine);
                        out.println("<h1>Servlet GestioneStatoOrdine at " + i+ "</h1>");  
          
-          
-             
- 
-
-       
-       
-
     }
 
     /**

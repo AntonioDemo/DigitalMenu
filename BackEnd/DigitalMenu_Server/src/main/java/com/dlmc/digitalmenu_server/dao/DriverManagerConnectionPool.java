@@ -6,9 +6,16 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ *
+ * @author alby
+ */
 public class DriverManagerConnectionPool  {
 
-	private static List<Connection> freeDbConnections;    //lista di connessioni
+    /**
+     *
+     */
+    private static List<Connection> freeDbConnections;    //lista di connessioni
 
 	static {
 		freeDbConnections = new LinkedList<Connection>();				//il caricamento del driver deve avvenire prima che il collegamento sia stabilito
@@ -19,13 +26,18 @@ public class DriverManagerConnectionPool  {
 }
 	}
 
-	private static synchronized Connection createDBConnection() throws SQLException {				//passiamo l'url contenetne il nome del db, Utente , password e parametri vari
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
+    private static synchronized Connection createDBConnection() throws SQLException {				//passiamo l'url contenetne il nome del db, Utente , password e parametri vari
 		Connection newConnection = null;
 		String ip = "localhost";
 		String port = "3306";
 		String db = "digitalmenu";
-		String username = "root";
-		String password = "Dma12345678!";
+		String username = "alby";
+		String password = "Asdfghjkl1234";
 
 		newConnection = DriverManager.getConnection("jdbc:mysql://"+ ip + ":" + port + "/" + db + "?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", username, password);
 
@@ -33,7 +45,12 @@ public class DriverManagerConnectionPool  {
 		return newConnection;
 	}
 
-	public static synchronized Connection getConnection() throws SQLException {
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
+    public static synchronized Connection getConnection() throws SQLException {
 		Connection connection;
 
 		if (!freeDbConnections.isEmpty()) {	 									//se la lista di connessioni non � vuota, preleva la prima
@@ -54,7 +71,12 @@ public class DriverManagerConnectionPool  {
 		return connection;
 	}
 
-	public static synchronized void releaseConnection(Connection connection) throws SQLException {
+    /**
+     *
+     * @param connection
+     * @throws SQLException
+     */
+    public static synchronized void releaseConnection(Connection connection) throws SQLException {
 		if(connection != null) freeDbConnections.add(connection);									//rimette la connessione in lista, se esiste
 	}
 }

@@ -13,12 +13,20 @@ import java.util.List;
  * @author Gerardo
  */
 public class ProdottoBean {
-    	private int prodottoId;
-	private double prezzo;
-	private String foto;
-        private String nome;
-        private List<IngredienteBean> listaIngredienti;
+
+    private int prodottoId;
+    private double prezzo;
+    private String foto;
+    private String nome;
+    private List<IngredienteBean> listaIngredienti;
         
+    /**
+     *
+     * @param prodottoId
+     * @param prezzo
+     * @param foto
+     * @param nome
+     */
     public ProdottoBean(int prodottoId, double prezzo, String foto, String nome) {
         this.prodottoId = prodottoId;
         this.prezzo = prezzo;
@@ -28,49 +36,98 @@ public class ProdottoBean {
         
     }
 
-    public ProdottoBean() {
+    /**
+     *
+     */
+    public ProdottoBean() {//instanziare oggetto
       
     }
 
-    public int getProdottoId() {
+    /**
+     *
+     * @return
+     */
+    public int getProdottoId() {//ritorna prodotto
         return prodottoId;
     }
 
-    public void setProdottoId(int prodottoId) {
+    /**
+     *
+     * @param prodottoId
+     */
+    public void setProdottoId(int prodottoId) {//parame
         this.prodottoId = prodottoId;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getPrezzo() {
         return prezzo;
     }
 
+    /**
+     *
+     * @param prezzo
+     */
     public void setPrezzo(double prezzo) {
         this.prezzo = prezzo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFoto() {
         return foto;
     }
 
+    /**
+     *
+     * @param foto
+     */
     public void setFoto(String foto) {
         this.foto = foto;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     *
+     * @param nome
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
     
-       public void addIngrediente (List<IngredienteBean> i) {
+    /**
+     *
+     * @param i
+     */
+    public void addIngrediente (List<IngredienteBean> i) {
         this.listaIngredienti=i;
     }
-           public boolean removeIngrediente (IngredienteBean i) {
+
+    /**
+     *
+     * @param i
+     * @return
+     */
+    public boolean removeIngrediente (IngredienteBean i) {
      return this.listaIngredienti.remove(i);
     }
 
+    /**
+     *
+     * @return
+     */
     public List<IngredienteBean> getListaIngredienti() {
         return listaIngredienti;
     }

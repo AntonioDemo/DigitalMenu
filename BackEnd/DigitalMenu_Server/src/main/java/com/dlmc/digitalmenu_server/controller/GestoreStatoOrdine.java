@@ -40,16 +40,14 @@ public class GestoreStatoOrdine extends HttpServlet {
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
      *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     * @custom.pre vyvy
      */
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String i = request.getParameter("id");
@@ -65,9 +63,9 @@ public class GestoreStatoOrdine extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
+     
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */

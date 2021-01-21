@@ -20,6 +20,11 @@ import java.util.List;
  */
 public class CategoriaDAO {
 
+    /**
+     *
+     * @param idCat
+     * @return
+     */
     public static List<ProdottoBean> getAllPiattiByCat(int idCat) {
         List<ProdottoBean> listaProdotti = new ArrayList<ProdottoBean>();
 
@@ -59,6 +64,10 @@ public class CategoriaDAO {
         return listaProdotti;
     }
 
+    /**
+     *
+     * @return
+     */
     public static List<CategoriaBean> getAllCat() {
         List<CategoriaBean> listaCategoria = new ArrayList<CategoriaBean>();
         try {
