@@ -60,8 +60,7 @@ public class VisualizzaOrdiniPagatiTest {
         String jsonBody = response.getBody().asString();
         JSONArray data = new JSONArray(jsonBody);
         
-        String oracolo = FileUtils.readFileToString(new File("//home/alby/Documenti/Progetto IS/DigitalMenu/"
-                + "BackEnd/DigitalMenu_Server/src/test/java/digitalmenu/test/jsonOrdiniPagati.json"),"utf-8");
+        String oracolo = FileUtils.readFileToString(new File("C:\\Users\\Administrator\\workspace\\Università\\DigitalMenuFileProgetto\\backendBrach\\DigitalMenu\\BackEnd\\DigitalMenu_Server\\src\\test\\java\\digitalmenu\\test\\jsonOrdiniPagati.json"),"utf-8");
         
         JSONAssert.assertEquals(oracolo, data, false);
     }

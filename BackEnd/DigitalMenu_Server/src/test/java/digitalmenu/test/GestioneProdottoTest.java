@@ -61,8 +61,7 @@ public class GestioneProdottoTest {
                 .response();
         String jsonBody = response.getBody().asString();
         JSONObject data = new JSONObject(jsonBody);
-        String oracolo = FileUtils.readFileToString(new File("//home/alby/Documenti/Progetto IS/DigitalMenu/"
-                + "BackEnd/DigitalMenu_Server/src/test/java/digitalmenu/test/jsonProdotto.json"),"utf-8");
+        String oracolo = FileUtils.readFileToString(new File("C:\\Users\\Administrator\\workspace\\Università\\DigitalMenuFileProgetto\\backendBrach\\DigitalMenu\\BackEnd\\DigitalMenu_Server\\src\\test\\java\\digitalmenu\\test\\jsonProdotto.json"),"utf-8");
         JSONAssert.assertEquals(oracolo, data, false);
     }
 

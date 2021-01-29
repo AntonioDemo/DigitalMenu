@@ -43,15 +43,14 @@ public class GestioneCategoriaTest {
 
         Response response = given()
                 .when()
-                .get("http://localhost:8080/DigitalMenu_Server/GestioneCategoria?id=2")
+                .get("http://localhost:8080/DigitalMenu_Server/GestioneCategoria?id=1")
                 .then()
                 .statusCode(200)
                 .extract()
                 .response();
         String jsonBody = response.getBody().asString();
         JSONArray data = new JSONArray(jsonBody);
-        String oracolo = FileUtils.readFileToString(new File("//home/alby/Documenti/Progetto IS/DigitalMenu/"
-                + "BackEnd/DigitalMenu_Server/src/test/java/digitalmenu/test/jsonIdCategoria.json"),"utf-8");
+        String oracolo = FileUtils.readFileToString(new File("C:\\Users\\Administrator\\workspace\\Università\\DigitalMenuFileProgetto\\backendBrach\\DigitalMenu\\BackEnd\\DigitalMenu_Server\\src\\test\\java\\digitalmenu\\test\\jsonIdCategoria.json"),"utf-8");
         JSONAssert.assertEquals(oracolo, data, false);
     }
 }
