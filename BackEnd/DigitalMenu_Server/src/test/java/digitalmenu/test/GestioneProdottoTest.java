@@ -7,6 +7,9 @@ package digitalmenu.test;
 
 import static io.restassured.RestAssured.given;
 import io.restassured.response.Response;
+import java.io.File;
+import java.io.IOException;
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +50,7 @@ public class GestioneProdottoTest {
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
-    public void hello() throws JSONException {
+    public void hello() throws JSONException, IOException {
 
         Response response = given()
                 .when()
@@ -58,8 +61,8 @@ public class GestioneProdottoTest {
                 .response();
         String jsonBody = response.getBody().asString();
         JSONObject data = new JSONObject(jsonBody);
-        String oracolo = 
-                "{\"prodottoId\":1,\"prezzo\":3.5,\"foto\":\"DigitalMenu_Server\\\\foto\\\\patatine_m.png\",\"nome\":\"Patatine\",\"listaIngredienti\":[]}";
+        String oracolo = FileUtils.readFileToString(new File("//home/alby/Documenti/Progetto IS/DigitalMenu/"
+                + "BackEnd/DigitalMenu_Server/src/test/java/digitalmenu/test/jsonProdotto.json"),"utf-8");
         JSONAssert.assertEquals(oracolo, data, false);
     }
 

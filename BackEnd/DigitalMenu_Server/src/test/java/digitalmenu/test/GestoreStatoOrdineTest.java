@@ -47,10 +47,10 @@ public class GestoreStatoOrdineTest {
     //
      @Test
      public void hello() throws JSONException {
-         /*
+         
      Response response = given()
                 .when()
-                .get("http://localhost:8080/DigitalMenu_Server/GestoreStatoOrdine?id=140")
+                .get("http://localhost:8080/DigitalMenu_Server/GestoreStatoOrdine?id=141")
                 .then()
                 .statusCode(200)
                 .extract()
@@ -60,7 +60,7 @@ public class GestoreStatoOrdineTest {
         String oracolo = 
                 "{\"prodottoId\":1,\"prezzo\":3.5,\"foto\":\"DigitalMenu_Server\\\\foto\\\\patatine_m.png\",\"nome\":\"Patatine\",\"listaIngredienti\":[]}";
         JSONAssert.assertEquals(oracolo, data, false);
-*/
+
      }
 
 }

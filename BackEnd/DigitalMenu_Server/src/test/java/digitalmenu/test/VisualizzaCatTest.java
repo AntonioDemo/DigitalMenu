@@ -7,6 +7,9 @@ package digitalmenu.test;
 
 import static io.restassured.RestAssured.given;
 import io.restassured.response.Response;
+import java.io.File;
+import java.io.IOException;
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.junit.After;
@@ -38,7 +41,7 @@ public class VisualizzaCatTest {
     // The methods must be annotated with annotation @Test. For example:
     //
      @Test
-     public void hello() throws JSONException {
+     public void hello() throws JSONException, IOException {
      
         Response response = given()
                 .when()
@@ -49,7 +52,8 @@ public class VisualizzaCatTest {
                 .response();
         String jsonBody = response.getBody().asString();
         JSONArray data = new JSONArray(jsonBody);
-        String oracolo = "[{\"categoriaId\":1,\"nomeCat\":\"Panini\",\"foto\":\"DigitalMenu_Server/foto/panini_thumb_menu_0.jpg\"},{\"categoriaId\":2,\"nomeCat\":\"Gelati e  dessert\",\"foto\":\"DigitalMenu_Server/foto/gelati_dessert--header-icon-2003.jpg\"},{\"categoriaId\":3,\"nomeCat\":\"Patatine\",\"foto\":\"DigitalMenu_Server/foto/patatine_thumb_menu.jpg\"},{\"categoriaId\":4,\"nomeCat\":\"Bibite\",\"foto\":\"DigitalMenu_Server/foto/bibite_menu.png\"},{\"categoriaId\":5,\"nomeCat\":\"Insalate\",\"foto\":\"DigitalMenu_Server/foto/insalata_menu.png\"},{\"categoriaId\":6,\"nomeCat\":\"Fritti\",\"foto\":\"DigitalMenu_Server/foto/fritti_menu.jpeg\"}]";
+         String oracolo = FileUtils.readFileToString(new File("//home/alby/Documenti/Progetto IS/DigitalMenu/"
+                + "BackEnd/DigitalMenu_Server/src/test/java/digitalmenu/test/jsonCategorie.json"),"utf-8");
         JSONAssert.assertEquals(oracolo, data, false);
      }
 }

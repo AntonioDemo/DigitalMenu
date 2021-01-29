@@ -84,7 +84,7 @@ public class GestioneOrdine extends HttpServlet {
             
              OrdineBean ordine= (OrdineBean )new Gson().fromJson(jb.toString(), OrdineBean.class);
              ordine.setOrdineId(i);
-             if(idPagamento==0) // con idPagamento a 0 significa che ha pagato  con carta e mettti lo stato a pagato
+             if(idPagamento==1) // con idPagamento a 1 significa che ha pagato con carta e mettti lo stato a pagato
              ordine.setStato_c(1);
              else
                  ordine.setStato_c(0);

@@ -8,6 +8,9 @@ package digitalmenu.test;
 
 import static io.restassured.RestAssured.given;
 import io.restassured.response.Response;
+import java.io.File;
+import java.io.IOException;
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.junit.After;
@@ -36,7 +39,7 @@ public class GestioneCategoriaTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     @Test
-    public void getAllPiattiByCat() throws JSONException {
+    public void getAllPiattiByCat() throws JSONException, IOException {
 
         Response response = given()
                 .when()
@@ -47,7 +50,8 @@ public class GestioneCategoriaTest {
                 .response();
         String jsonBody = response.getBody().asString();
         JSONArray data = new JSONArray(jsonBody);
-        String oracolo = "[{\"prodottoId\":3,\"prezzo\":5.0,\"foto\":\"DigitalMenu_Server\\\\foto\\\\galak.png\",\"nome\":\"Galak\",\"listaIngredienti\":null},{\"prodottoId\":20,\"prezzo\":3.5,\"foto\":\"DigitalMenu_Server\\\\foto\\\\king_fusion_oreo.png\",\"nome\":\"King Fusion Oreo\",\"listaIngredienti\":null},{\"prodottoId\":21,\"prezzo\":3.0,\"foto\":\"DigitalMenu_Server\\\\foto\\\\king-fusion-nescafe-02-pl.png\",\"nome\":\"King Fusion Nescafe\",\"listaIngredienti\":null}]";
+        String oracolo = FileUtils.readFileToString(new File("//home/alby/Documenti/Progetto IS/DigitalMenu/"
+                + "BackEnd/DigitalMenu_Server/src/test/java/digitalmenu/test/jsonIdCategoria.json"),"utf-8");
         JSONAssert.assertEquals(oracolo, data, false);
     }
 }
