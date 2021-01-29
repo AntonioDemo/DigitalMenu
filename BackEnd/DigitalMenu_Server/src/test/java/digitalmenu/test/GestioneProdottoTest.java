@@ -5,6 +5,8 @@
  */
 package digitalmenu.test;
 
+import com.dlmc.digitalmenu_server.beans.CategoriaBean;
+import com.dlmc.digitalmenu_server.beans.ProdottoBean;
 import static io.restassured.RestAssured.given;
 import io.restassured.response.Response;
 import java.io.File;
@@ -26,17 +28,14 @@ import org.skyscreamer.jsonassert.JSONAssert;
  * @author Anto
  */
 public class GestioneProdottoTest {
+      ProdottoBean catEsistente = new ProdottoBean();
+   ProdottoBean catNonEsistente = new ProdottoBean();
+    ProdottoBean catMinZero = new ProdottoBean();
 
     public GestioneProdottoTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
+ 
 
     @Before
     public void setUp() {
@@ -50,7 +49,7 @@ public class GestioneProdottoTest {
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
-    public void hello() throws JSONException, IOException {
+    public void visualizzaDettagliProdotto()  throws JSONException, IOException {
 
         Response response = given()
                 .when()

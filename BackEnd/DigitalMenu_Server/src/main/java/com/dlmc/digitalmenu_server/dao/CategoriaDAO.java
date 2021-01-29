@@ -93,4 +93,38 @@ public class CategoriaDAO {
         }
         return listaCategoria;
     }
+    
+public static boolean controlloCategoria (int id) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		boolean retVal=false;
+		try {
+			String selectSQL="SELECT * FROM categoria WHERE idCategoria = ?";
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, id);
+			ResultSet rs = preparedStatement.executeQuery();
+			if(rs.next())
+				retVal = true;
+			else
+				retVal = false;
+		}catch(Exception e) {e.printStackTrace();}	
+		finally {
+			try {
+				if(preparedStatement != null) 
+					preparedStatement.close();
+				if(preparedStatement != null) 
+					preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					DriverManagerConnectionPool.releaseConnection(connection);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return retVal;
+	}
 }
