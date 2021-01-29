@@ -1,0 +1,148 @@
+[
+	{
+    "prodottoId": 1,
+    "prezzo": 3.5,
+    "foto": "DigitalMenu_Server\\foto\\patatine_m.png",
+    "nome": "Patatine",
+    "listaIngredienti": []
+        },
+	{
+    "prodottoId": 2,
+    "prezzo": 4.0,
+    "foto": "DigitalMenu_Server\\foto\\patatine_bacon.png",
+    "nome": "Patatine Barbeque",
+    "listaIngredienti": []
+},
+	{
+		"prodottoId" : 3,
+		"prezzo" : 5,
+		"foto" : "DigitalMenu_Server\\foto\\galak.png",
+		"nome" : "Galak"
+	},
+	{
+		"prodottoId" : 7,
+		"prezzo" : 6,
+		"foto" : "DigitalMenu_Server\\foto\\bronx_steakhouse.png",
+		"nome" : "Bronx Steakhouse"
+	},
+	{
+		"prodottoId" : 8,
+		"prezzo" : 5,
+		"foto" : "DigitalMenu_Server\\foto\\cheeseburger.png",
+		"nome" : "Cheeseburger"
+	},
+	{
+		"prodottoId" : 9,
+		"prezzo" : 7,
+		"foto" : "DigitalMenu_Server\\foto\\big_king_nueva.png",
+		"nome" : "Big King Nueva"
+	},
+	{
+		"prodottoId" : 10,
+		"prezzo" : 6.5,
+		"foto" : "DigitalMenu_Server\\foto\\whopper.png",
+		"nome" : "Whopper"
+	},
+	{
+		"prodottoId" : 11,
+		"prezzo" : 4.5,
+		"foto" : "DigitalMenu_Server\\foto\\bbq_beef_wrap.png",
+		"nome" : "Barbeque Wrap"
+	},
+	{
+		"prodottoId" : 12,
+		"prezzo" : 5.5,
+		"foto" : "DigitalMenu_Server\\foto\\crunchicken.png",
+		"nome" : "Cruchicken"
+	},
+	{
+		"prodottoId" : 13,
+		"prezzo" : 5,
+		"foto" : "DigitalMenu_Server\\foto\\prodotto-scontornato-pollo.png",
+		"nome" : "Scontornato Pollo"
+	},
+	{
+		"prodottoId" : 14,
+		"prezzo" : 3.5,
+		"foto" : "DigitalMenu_Server\\foto\\onion_rings_x8.png",
+		"nome" : "Onion Rings"
+	},
+	{
+		"prodottoId" : 15,
+		"prezzo" : 3,
+		"foto" : "DigitalMenu_Server\\foto\\chili_cheese_bites_x6.png",
+		"nome" : "Chili Cheese Bites"
+	},
+	{
+		"prodottoId" : 16,
+		"prezzo" : 4,
+		"foto" : "DigitalMenu_Server\\foto\\king_nuggets_x9_v2.png",
+		"nome" : "King Nuggets"
+	},
+	{
+		"prodottoId" : 17,
+		"prezzo" : 4.5,
+		"foto" : "DigitalMenu_Server\\foto\\insalata_di_pollo_croccante.png",
+		"nome" : "Insalata Pollo Croccante"
+	},
+	{
+		"prodottoId" : 18,
+		"prezzo" : 5,
+		"foto" : "DigitalMenu_Server\\foto\\insalata_con_tonno_rio_di_mare.png",
+		"nome" : "Insalata Tonno"
+	},
+	{
+		"prodottoId" : 19,
+		"prezzo" : 5,
+		"foto" : "DigitalMenu_Server\\foto\\insalata_mista.png",
+		"nome" : "Insalata Mista"
+	},
+	{
+		"prodottoId" : 20,
+		"prezzo" : 3.5,
+		"foto" : "DigitalMenu_Server\\foto\\king_fusion_oreo.png",
+		"nome" : "King Fusion Oreo"
+	},
+	{
+		"prodottoId" : 21,
+		"prezzo" : 3,
+		"foto" : "DigitalMenu_Server\\foto\\king-fusion-nescafe-02-pl.png",
+		"nome" : "King Fusion Nescafe"
+	},
+	{
+		"prodottoId" : 22,
+		"prezzo" : 1.5,
+		"foto" : "DigitalMenu_Server\\foto\\aqua_minerale.png",
+		"nome" : "Acqua Minerale"
+	},
+	{
+		"prodottoId" : 23,
+		"prezzo" : 5,
+		"foto" : "DigitalMenu_Server\\foto\\birra_m.png",
+		"nome" : "Birra"
+	},
+	{
+		"prodottoId" : 24,
+		"prezzo" : 3.5,
+		"foto" : "DigitalMenu_Server\\foto\\fanta_m.png",
+		"nome" : "Fanta"
+	},
+	{
+		"prodottoId" : 25,
+		"prezzo" : 3.5,
+		"foto" : "DigitalMenu_Server\\foto\\cocacola_m.png",
+		"nome" : "Cocacola"
+	},
+	{
+		"prodottoId" : 26,
+		"prezzo" : 3.5,
+		"foto" : "DigitalMenu_Server\\foto\\sprite_m.png",
+		"nome" : "Sprite"
+	},
+	{
+		"prodottoId" : 27,
+		"prezzo" : 4.5,
+		"foto" : "DigitalMenu_Server\\foto\\power-fries.png",
+		"nome" : "Power Friels"
+	}
+]

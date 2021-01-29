@@ -1,0 +1,32 @@
+[
+	{
+		"categoriaId" : 1,
+		"nomeCat" : "Panini",
+		"foto" : "DigitalMenu_Server/foto/panini_menu.jpeg"
+	},
+	{
+		"categoriaId" : 2,
+		"nomeCat" : "Gelati e Dessert",
+		"foto" : "DigitalMenu_Server/foto/gelati_dessert.jpeg"
+	},
+	{
+		"categoriaId" : 3,
+		"nomeCat" : "Patatine",
+		"foto" : "DigitalMenu_Server/foto/patatine_menu.jpeg"
+	},
+	{
+		"categoriaId" : 4,
+		"nomeCat" : "Bibite",
+		"foto" : "DigitalMenu_Server/foto/bibite_menu.png"
+	},
+	{
+		"categoriaId" : 5,
+		"nomeCat" : "Insalate",
+		"foto" : "DigitalMenu_Server/foto/insalata_menu.png"
+	},
+	{
+		"categoriaId" : 6,
+		"nomeCat" : "Fritti",
+		"foto" : "DigitalMenu_Server/foto/fritti_menu.jpeg"
+	}
+]
