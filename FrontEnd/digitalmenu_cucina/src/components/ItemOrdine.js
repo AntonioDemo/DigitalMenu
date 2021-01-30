@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 import { Modal, Button, Card, Row } from "antd";
+import { Typography, Space } from "antd";
+const { Text, Link, Title } = Typography;
 
 function ItemOrdine(props) {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -18,9 +20,17 @@ function ItemOrdine(props) {
     setIsModalVisible(false);
   };
 
+  let totale = 0;
   return (
-    <Row>
+    <>
       <Card
+        style={{
+          display: "inline-block",
+          width: " 30%",
+          margin: " 5px",
+          padding: "0px",
+        }}
+        hoverable
         onClick={() => {
           showModal();
         }}
@@ -32,15 +42,27 @@ function ItemOrdine(props) {
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
+        okText="Cambia stato"
+        cancelText="Indietro"
       >
         {props.ordine.listaProdotti.map((value, i) => {
-          return <p key={i}>{value.prodotto.nome} </p>;
+          totale += value.prodotto.prezzo;
+          return (
+            <>
+              <Title level={4} key={i}>
+                {value.prodotto.nome} x{value.quantita} :{" "}
+                {value.prodotto.prezzo}€
+              </Title>
+              <Text type="danger">
+                &emsp; Senza: {value.deleteing != "" && value.deleteing}{" "}
+              </Text>
+            </>
+          );
         })}
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+
+        <Title level={4}>Totale: {totale}€</Title>
       </Modal>
-    </Row>
+    </>
   );
 }
 

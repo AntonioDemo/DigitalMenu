@@ -19,7 +19,6 @@ function ItemDetProdotto(props) {
         zIndex: "1000",
         display: "inline-block",
         width: "80%",
-        height: "80%",
         margin: "5px",
         padding: "0px",
         boxShadow:
@@ -36,7 +35,7 @@ function ItemDetProdotto(props) {
             alt={"prodotto"}
             src={"http://localhost:8080/" + props.foto}
             style={{
-              width: "30vh",
+              width: "27vh",
               marginLeft: "auto",
               marginRight: "auto",
             }}
@@ -50,7 +49,9 @@ function ItemDetProdotto(props) {
       </Row>
       <Row>
         <Col style={{ width: "100%", textAlign: "left", marginLeft: "10px" }}>
-          <Title level={2}>Lista Ingredienti</Title>
+          {props.listIng !== undefined && props.listIng.length !== 0 && (
+            <Title level={2}>Lista Ingredienti</Title>
+          )}
           {props.listIng !== undefined &&
             props.listIng.map((value, i) => {
               return (
@@ -58,6 +59,7 @@ function ItemDetProdotto(props) {
                   {value.nomeIng}
                   {value.isRimovibile == true && (
                     <Switch
+                      style={{ marginLeft: "10px" }}
                       checkedChildren={<CheckOutlined />}
                       unCheckedChildren={<CloseOutlined />}
                       defaultChecked
@@ -79,7 +81,7 @@ function ItemDetProdotto(props) {
           >
             -
           </Button>
-          <Button>quantita {qta}</Button>
+          <Button>Quantita: {qta}</Button>
           <Button
             onClick={() => {
               setQta(qta + 1);

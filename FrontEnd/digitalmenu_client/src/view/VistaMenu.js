@@ -22,6 +22,7 @@ function VistaMenu() {
         <Sider
           width={"15%"}
           style={{
+            backgroundColor: "#1f1f1f",
             overflow: "auto",
           }}
         >
@@ -37,6 +38,7 @@ function VistaMenu() {
       </Layout>
       <Footer
         style={{
+          backgroundColor: "#1f1f1f",
           height: "25vh",
           padding: "5px",
         }}

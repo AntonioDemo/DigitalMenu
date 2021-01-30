@@ -5,12 +5,12 @@ import { DeleteOutlined } from "@ant-design/icons";
 import CarrelloContext from "../context/CarrelloContext";
 
 function deleteProdotto(lista, indice) {
+  console.log("DELETE_PRODOTTO", indice, lista);
   let prezzoDaSottrarre = 0;
   for (var i = 0; i < lista.length; i++) {
-    if (lista[i].prodotto.prodottoId === indice) {
+    if (i === indice) {
       prezzoDaSottrarre = lista[i].prodotto.prezzo;
       lista.splice(i, 1);
-      i--;
     }
   }
   return prezzoDaSottrarre;
@@ -22,13 +22,14 @@ function ItemRigaProdotto(props) {
   return (
     <Row
       style={{
-        backgroundColor: "grey",
+        backgroundColor: "#ffffff",
         padding: "5px",
+        fontSize: "large",
       }}
     >
       <Col flex="auto"> {props.nome} </Col>
       <Col flex="100px">Quantità: {props.qta}</Col>
-      <Col flex="100px">Prezzo: {props.prezzo}</Col>
+      <Col flex="100px">Prezzo: {props.prezzo}€</Col>
       <Col flex="100px">
         <Button
           onClick={() => {
@@ -36,9 +37,9 @@ function ItemRigaProdotto(props) {
 
             let prezzoDaSottrarre = deleteProdotto(
               contestoClone.listaProdotti,
-              props.prodottoId
+              props.id
             );
-
+            console.log("MAMAMAMAMAM", props.id);
             contestoClone.prezzoTotale -= prezzoDaSottrarre;
             setContext(contestoClone);
             console.log(

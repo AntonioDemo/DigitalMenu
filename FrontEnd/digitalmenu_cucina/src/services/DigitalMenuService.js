@@ -30,7 +30,7 @@ class DigitalMenuService {
   }
 
   getOrdini() {
-    return axios.post(URL + "GestioneCodaOrdini", {});
+    return axios.post(URL + "VisualizzaOrdiniPagati", {});
   }
 
   setStato(id) {

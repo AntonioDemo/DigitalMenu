@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Row, Col, Button, Modal, AutoComplete } from "antd";
+import { Row, Col, Button, Modal } from "antd";
 import { Layout } from "antd";
 import ItemRigaProdotto from "../components/ItemRigaProdotto";
 import CarrelloContext from "../context/CarrelloContext";
@@ -24,7 +24,6 @@ function countDown(messaggio) {
 function VistaCarrello(props) {
   const [carrelloContext, setContext] = useContext(CarrelloContext);
   const [visible, setVisible] = useState(false);
-  console.log("VISTACARRELLO CONTEXT=", carrelloContext);
   return (
     <Layout
       style={{
@@ -72,6 +71,7 @@ function VistaCarrello(props) {
                     return (
                       <ItemRigaProdotto
                         key={i}
+                        id={i}
                         prodottoId={value.prodotto.prodottoId}
                         nome={value.prodotto.nome}
                         qta={value.quantita}
@@ -79,10 +79,6 @@ function VistaCarrello(props) {
                       />
                     );
                   })}
-                {console.log(
-                  "V.CARRELLO CONTEXT DOPO RENDER ITEMpRODOT ",
-                  carrelloContext
-                )}
               </Col>
 
               <Col
@@ -114,6 +110,9 @@ function VistaCarrello(props) {
                     }}
                   >
                     <Button
+                      disabled={
+                        carrelloContext.listaProdotti.length === 0 && true
+                      }
                       onClick={() => {
                         setVisible(true);
                       }}
@@ -162,7 +161,7 @@ function VistaCarrello(props) {
                           height: "250px",
                         }}
                       >
-                        PAGA IN CONTANTI
+                        PAGA ALLA CASSA
                       </Button>
                       <Button
                         onClick={() => {
@@ -175,7 +174,7 @@ function VistaCarrello(props) {
                           let Carrello = {
                             categoriaSelezionata: 1,
                             prodottoSelezionato: 1,
-                            metodoDiPagamento: 0,
+                            metodoDiPagamento: 1,
                             prezzoTotale: 0.0,
                             listaProdotti: [],
                           };
