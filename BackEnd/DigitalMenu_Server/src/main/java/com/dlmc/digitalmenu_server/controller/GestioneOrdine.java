@@ -78,8 +78,7 @@ public class GestioneOrdine extends HttpServlet {
         } catch (IOException e) {
         }
             PrintWriter out = response.getWriter();
-                out.println("<h1>Servlet GestioneStatoOrdine at " + i+ "</h1>");
-                out.println("<h1>Servlet GestioneStatoOrdine at " + idPagamento+ "</h1>");
+            
                 i=OrdineDAO.getLastId()+1;
             
              OrdineBean ordine= (OrdineBean )new Gson().fromJson(jb.toString(), OrdineBean.class);

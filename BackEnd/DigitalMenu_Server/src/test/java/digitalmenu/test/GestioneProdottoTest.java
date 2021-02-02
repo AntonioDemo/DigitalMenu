@@ -7,6 +7,8 @@ package digitalmenu.test;
 
 import com.dlmc.digitalmenu_server.beans.CategoriaBean;
 import com.dlmc.digitalmenu_server.beans.ProdottoBean;
+import com.dlmc.digitalmenu_server.dao.CategoriaDAO;
+import com.dlmc.digitalmenu_server.dao.ProdottoDAO;
 import static io.restassured.RestAssured.given;
 import io.restassured.response.Response;
 import java.io.File;
@@ -28,9 +30,9 @@ import org.skyscreamer.jsonassert.JSONAssert;
  * @author Anto
  */
 public class GestioneProdottoTest {
-      ProdottoBean catEsistente = new ProdottoBean();
-   ProdottoBean catNonEsistente = new ProdottoBean();
-    ProdottoBean catMinZero = new ProdottoBean();
+      ProdottoBean proEsistente = new ProdottoBean();
+   ProdottoBean proNonEsistente = new ProdottoBean();
+    ProdottoBean proMinZero = new ProdottoBean();
 
     public GestioneProdottoTest() {
     }
@@ -39,6 +41,10 @@ public class GestioneProdottoTest {
 
     @Before
     public void setUp() {
+        proEsistente.setProdottoId(2);
+        proNonEsistente.setProdottoId(100);
+        proMinZero.setProdottoId(-1);
+        
     }
 
     @After
@@ -53,15 +59,24 @@ public class GestioneProdottoTest {
 
         Response response = given()
                 .when()
-                .get("http://localhost:8080/DigitalMenu_Server/GestioneProdotto?idP=1")
+                .get("http://localhost:8000/DigitalMenu_Server/GestioneProdotto?idP="+proEsistente.getProdottoId())
                 .then()
                 .statusCode(200)
                 .extract()
                 .response();
         String jsonBody = response.getBody().asString();
         JSONObject data = new JSONObject(jsonBody);
-        String oracolo = FileUtils.readFileToString(new File("C:\\Users\\Administrator\\workspace\\Università\\DigitalMenuFileProgetto\\backendBrach\\DigitalMenu\\BackEnd\\DigitalMenu_Server\\src\\test\\java\\digitalmenu\\test\\jsonProdotto.json"),"utf-8");
+        String oracolo = FileUtils.readFileToString(new File("C:\\Users\\Gerardo\\Desktop\\DigitalMenu\\BackEnd\\DigitalMenu_Server\\src\\test\\java\\digitalmenu\\test\\jsonProdotto.json"),"utf-8");
         JSONAssert.assertEquals(oracolo, data, false);
     }
 
+            @Test
+    public void testControlloProdotto() {
+                
+        assertTrue(ProdottoDAO.controlloProdotto(proEsistente.getProdottoId()));//esiste
+        assertFalse(ProdottoDAO.controlloProdotto(proNonEsistente.getProdottoId())); //non esiste
+        assertTrue(proEsistente.getProdottoId()  > 0);
+        assertTrue(proMinZero.getProdottoId() < 0);
+
+    }
 }

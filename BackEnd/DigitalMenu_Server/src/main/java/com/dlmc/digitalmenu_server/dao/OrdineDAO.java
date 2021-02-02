@@ -25,18 +25,25 @@ import java.util.logging.Logger;
  */
 public class OrdineDAO {
 
-
-    public static void doSave(OrdineBean b) {
+    public static boolean doSave(OrdineBean b) {
+         if (b.getOrdineId() <0) 
+            return false;
+          if(idEsisite(b.getOrdineId())==true)
+                    return false;
+       
+        if (b.getListaProdotti().size() == 0) 
+            return false;
+        
 
         List<DettagliOrdineBean> p = b.getListaProdotti();
-         Connection currentCon = null;
+        Connection currentCon = null;
         int id = b.getOrdineId();
-        int  stato=b.getStato();
+        int stato = b.getStato();
         String sqll = "INSERT INTO digitalmenu.aggiunto(aggiunto.idprodo,aggiunto.idordi,aggiunto.deleteing,aggiunto.prezzo,aggiunto.quantita) values"
                 + "(?,?,?,?,?);";
         String sql = "INSERT INTO digitalmenu.ordine (idordine,stato) values"
                 + "(?,?);";
-    
+
         try {
             currentCon = DriverManagerConnectionPool.getConnection();
 
@@ -45,22 +52,26 @@ public class OrdineDAO {
             ps.setInt(2, stato);
             ps.executeUpdate();
             ps.close();
-               
+
             for (DettagliOrdineBean bean : p) {
                 PreparedStatement pss = currentCon.prepareStatement(sqll);
                 pss.setInt(1, bean.getProdotto().getProdottoId());
                 pss.setInt(2, id);
-                 pss.setString(3, bean.getIngedienteRimoso());
+                pss.setString(3, bean.getIngedienteRimoso());
                 pss.setDouble(4, bean.getProdotto().getPrezzo());
-               
+
                 pss.setInt(5, bean.getquantita());
 
                 pss.executeUpdate();
-               
+
             }
             currentCon.commit();
+
         } catch (SQLException ex) {
+            System.out.println("forza dma");
             Logger.getLogger(OrdineDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+
         } finally {
             if (currentCon != null) {
                 try {
@@ -70,36 +81,38 @@ public class OrdineDAO {
 
                 currentCon = null;
             }
+                return true;
         }
+       
+          
+    
     }
 
-    public static int getLastId()  {
+    public static int getLastId() {
 
         String sql = "  SELECT max(idordine) FROM ordine;";
 
-
-     int id = 0;
-           Connection con =null;
-     try{
-         con = DriverManagerConnectionPool.getConnection();
+        int id = 0;
+        Connection con = null;
+        try {
+            con = DriverManagerConnectionPool.getConnection();
             PreparedStatement p = con.prepareStatement(sql);
-           ResultSet answers = p.executeQuery();
-          answers.next();
-        if(  answers.getString(1)==null)
-            id=0;
-            
-         else
-         id = Integer.parseInt(answers.getString(1));
-           answers.close();
+            ResultSet answers = p.executeQuery();
+            answers.next();
+            if (answers.getString(1) == null) {
+                id = 0;
+            } else {
+                id = Integer.parseInt(answers.getString(1));
+            }
+            answers.close();
             p.close();
             con.close();
-     }
-     catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(OrdineDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return id;
     }
-  
+
     public static int getstato(int id) {
 
         int stat = -1;
@@ -170,12 +183,14 @@ public class OrdineDAO {
                 ProdottoBean prodo = new ProdottoBean(answers.getInt(3), answers.getDouble(7), answers.getString(8), answers.getString(6));
                 DettagliOrdineBean dettagliordine = new DettagliOrdineBean(answers.getInt(4), answers.getString(5), prodo);
                 ListDett.add(dettagliordine);
-                if (ListOrdi.size() > 0)
+                if (ListOrdi.size() > 0) {
                     if (answers.getInt(2) == ListOrdi.get(ListOrdi.size() - 1).getOrdineId()) {
-                        for (int v = 0; v < (ListOrdi.get(ListOrdi.size() - 1).getListaProdotti().size()); v++)
+                        for (int v = 0; v < (ListOrdi.get(ListOrdi.size() - 1).getListaProdotti().size()); v++) {
                             ListDett.add(ListOrdi.get(ListOrdi.size() - 1).getListaProdotti().get(v));
+                        }
                         ListOrdi.remove(ListOrdi.size() - 1);
                     }
+                }
                 ordine.setListaProdotti(ListDett);
                 ListOrdi.add(ordine);
             }
@@ -186,4 +201,39 @@ public class OrdineDAO {
         return ListOrdi;
 
     }
+    
+    public static boolean idEsisite (int id ){
+        boolean val = false ;
+        String sql = "SELECT stato FROM digitalmenu.ordine WHERE (`idordine` = ?);";
+        Connection con;
+        try {
+            con = DriverManagerConnectionPool.getConnection();
+
+            PreparedStatement p = con.prepareStatement(sql);
+            p.setInt(1, id);
+            ResultSet answers = p.executeQuery();
+            if (answers.next() == false) {
+                val=false;
+            } else {
+                val=true ;
+            }
+            answers.close();
+            p.close();
+            con.close();
+
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(OrdineDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return val;
+        
+    
+    }
+    
+    public boolean deleteOrdine (OrdineBean b) {
+         
+        String sql = "DELETE FROM aggiunto WHERE (`idordi` = ?);";
+        return true;
+    }
+    
 }

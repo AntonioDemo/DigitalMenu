@@ -20,6 +20,7 @@ public class DettagliOrdineBean {
         deleteing = delete;
         prodotto = prod;
     }
+  public   DettagliOrdineBean (){};
 
     public int getquantita() {
         return quantita;
