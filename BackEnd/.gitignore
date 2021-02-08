@@ -9,7 +9,7 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
-
+foto/
 #######
 /apache-tomcat*
 /build/
