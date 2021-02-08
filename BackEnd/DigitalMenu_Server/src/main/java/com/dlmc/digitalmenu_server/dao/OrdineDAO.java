@@ -28,7 +28,7 @@ public class OrdineDAO {
     public static boolean doSave(OrdineBean b) {
          if (b.getOrdineId() <0) 
             return false;
-          if(idEsisite(b.getOrdineId())==true)
+          if(idEsiste(b.getOrdineId())==true)
                     return false;
        
         if (b.getListaProdotti().size() == 0) 
@@ -202,7 +202,7 @@ public class OrdineDAO {
 
     }
     
-    public static boolean idEsisite (int id ){
+    public static boolean idEsiste (int id ){
         boolean val = false ;
         String sql = "SELECT stato FROM digitalmenu.ordine WHERE (`idordine` = ?);";
         Connection con;
@@ -226,14 +226,32 @@ public class OrdineDAO {
             Logger.getLogger(OrdineDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return val;
-        
-    
     }
     
-    public boolean deleteOrdine (OrdineBean b) {
+    public static boolean deleteOrdine (OrdineBean b) {
          
+        boolean val = false;
         String sql = "DELETE FROM aggiunto WHERE (`idordi` = ?);";
-        return true;
+        String sql1 = "DELETE FROM ordine WHERE (`idordine` = ?);";
+        
+        Connection con;
+        try {
+            con = DriverManagerConnectionPool.getConnection();
+
+            PreparedStatement p = con.prepareStatement(sql);
+            p.setInt(1, b.getOrdineId());
+            p.executeUpdate();
+            PreparedStatement p1 = con.prepareStatement(sql1);
+            p1.setInt(1, b.getOrdineId());
+            p1.executeUpdate();
+            con.commit();
+            p.close();
+            p1.close();
+            con.close();
+            
+             } catch (SQLException ex) {
+            Logger.getLogger(OrdineDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return val;
     }
-    
 }

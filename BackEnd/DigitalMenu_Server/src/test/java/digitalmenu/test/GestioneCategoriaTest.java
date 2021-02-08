@@ -7,6 +7,7 @@ package digitalmenu.test;
 
 import com.dlmc.digitalmenu_server.beans.CategoriaBean;
 import com.dlmc.digitalmenu_server.dao.CategoriaDAO;
+import com.google.gson.Gson;
 import static io.restassured.RestAssured.given;
 import io.restassured.response.Response;
 import java.io.File;
@@ -27,6 +28,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
  */
 public class GestioneCategoriaTest {
 
+    String oracolo;
     CategoriaBean catEsistente = new CategoriaBean();
     CategoriaBean catNonEsistente = new CategoriaBean();
     CategoriaBean catMinZero = new CategoriaBean();
@@ -36,9 +38,19 @@ public class GestioneCategoriaTest {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
+        
+        oracolo = FileUtils.readFileToString(new File("C:\\Users\\Administrator\\workspace\\Università\\DigitalMenuFileProgetto\\backendBrach\\DigitalMenu/Back"
+                + "End/DigitalMenu_Server/src/test/java/digitalmenu/test/jsonCategorie.json"), "utf-8");
+        
+        //BUONO
+        catEsistente = (CategoriaBean) new Gson().fromJson(oracolo, CategoriaBean.class);
         catEsistente.setCategoriaId(1);
+        //CATEGORIA NON ESISTE
+        catNonEsistente = (CategoriaBean) new Gson().fromJson(oracolo, CategoriaBean.class);
         catNonEsistente.setCategoriaId(7);
+        //CATEGORIA < 0
+        catMinZero = (CategoriaBean) new Gson().fromJson(oracolo, CategoriaBean.class);
         catMinZero.setCategoriaId(-1);
 
     }
@@ -54,24 +66,28 @@ public class GestioneCategoriaTest {
 
         Response response = given()
                 .when()
-                .get("http://localhost:8000/DigitalMenu_Server/GestioneCategoria?id=" + catEsistente.getCategoriaId())
+                .get("http://localhost:8080/DigitalMenu_Server/GestioneCategoria?id=" + catEsistente.getCategoriaId())
                 .then()
                 .statusCode(200)
                 .extract()
                 .response();
-        String jsonBody = response.getBody().asString();
-        JSONArray data = new JSONArray(jsonBody);
-        String oracolo = FileUtils.readFileToString(new File("C:\\Users\\Gerardo\\Desktop\\DigitalMenu\\BackEnd\\DigitalMenu_Server\\src\\test\\java\\digitalmenu\\test\\jsonIdCategoria.json"), "utf-8");
-        JSONAssert.assertEquals(oracolo, data, false);
     }
 
+    
     @Test
-    public void testControlloCategoria() {
-        assertTrue(CategoriaDAO.controlloCategoria(catEsistente.getCategoriaId()));//esiste
-        assertFalse(CategoriaDAO.controlloCategoria(catNonEsistente.getCategoriaId())); //non esiste
-        assertTrue(catEsistente.getCategoriaId() > 0);
-        assertTrue(catMinZero.getCategoriaId() < 0);
-
+    public void test__TC_UC_C_1_1() {
+        assertFalse(catMinZero.getCategoriaId() > 0);
     }
-
+     @Test
+    public void test_TC_UC_C_1_2() {
+        assertTrue(catEsistente.getCategoriaId() > 0);
+        assertFalse(CategoriaDAO.controlloCategoria(catNonEsistente.getCategoriaId())); //non esiste
+    }
+    @Test
+    public void test_TC_UC_C_1_3() {
+        assertTrue(catEsistente.getCategoriaId() > 0);
+        assertTrue(CategoriaDAO.controlloCategoria(catEsistente.getCategoriaId()));//esiste
+    }
+    
+     
 }

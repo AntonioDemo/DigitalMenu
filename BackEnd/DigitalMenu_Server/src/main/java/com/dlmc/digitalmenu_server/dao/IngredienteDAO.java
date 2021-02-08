@@ -58,4 +58,59 @@ public class IngredienteDAO {
         return ingrediente;
     }
 
+    public static boolean controlloDeleteIng(String delete, int idP) {
+        String p;
+        int id = 0;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        PreparedStatement preparedStatement1 = null;
+        boolean retVal = false;
+        try {
+            String selectSQL = "SELECT idIngrediente FROM digitalmenu.ingrediente where nome=? and isRimovibile=1;";
+            String selectSQL1 = "SELECT * FROM digitalmenu.formato where idingrediente=? and idprodot=?";
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(selectSQL);
+            preparedStatement.setString(1, delete);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt(0);
+                retVal=true;
+            } else {
+                retVal=false;
+            }
+           
+            preparedStatement1 = connection.prepareStatement(selectSQL1);
+            preparedStatement1.setInt(1, id);
+            preparedStatement1.setInt(2, idP);
+            ResultSet rs1 = preparedStatement.executeQuery();
+            
+            if (rs1.next()) {
+                retVal=true;
+            } else {
+                retVal=false;
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null || preparedStatement1 != null) {
+                    preparedStatement.close();
+                    connection.close();
+                }
+                
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    DriverManagerConnectionPool.releaseConnection(connection);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return retVal;
+    }
+
 }

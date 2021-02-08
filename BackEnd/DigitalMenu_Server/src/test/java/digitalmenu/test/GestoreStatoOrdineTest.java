@@ -5,62 +5,88 @@
  */
 package digitalmenu.test;
 
+import com.dlmc.digitalmenu_server.beans.OrdineBean;
+import com.dlmc.digitalmenu_server.dao.OrdineDAO;
 import static io.restassured.RestAssured.given;
 import io.restassured.response.Response;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.skyscreamer.jsonassert.JSONAssert;
 
 /**
  *
  * @author Anto
  */
 public class GestoreStatoOrdineTest {
+    int oracolo=1;
+    OrdineBean b = new OrdineBean();
+    OrdineBean b1 = new OrdineBean();
+    OrdineBean b2 = new OrdineBean();
+    OrdineBean b3 = new OrdineBean();
     
     public GestoreStatoOrdineTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
     
     @Before
     public void setUp() {
+        //IDORDINE < 0
+        b.setOrdineId(-3);
+        //IDORDINE NON ESISTE
+        b1.setOrdineId(200);
+        //STATO < 0
+        b2.setOrdineId(1);
+        b2.setStato_c(-5);        
+        //BUONO
+        b3.setOrdineId(1);
+        b3.setStato_c(1);
+        oracolo=b3.getStato();
     }
     
     @After
     public void tearDown() {
+       OrdineDAO.setstato(b3.getOrdineId(), 1);
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-     @Test
-     public void hello() throws JSONException {
+    
+    @Test
+     public void setStato() throws JSONException {
          
      Response response = given()
                 .when()
-                .get("http://localhost:8080/DigitalMenu_Server/GestoreStatoOrdine?id=141")
+                .get("http://localhost:8080/DigitalMenu_Server/GestoreStatoOrdine?id="+b3.getOrdineId())
                 .then()
                 .statusCode(200)
                 .extract()
                 .response();
-        String jsonBody = response.getBody().asString();
-        JSONObject data = new JSONObject(jsonBody);
-        String oracolo = 
-                "{\"prodottoId\":1,\"prezzo\":3.5,\"foto\":\"DigitalMenu_Server\\\\foto\\\\patatine_m.png\",\"nome\":\"Patatine\",\"listaIngredienti\":[]}";
-        JSONAssert.assertEquals(oracolo, data, false);
-
      }
+     @Test
+     public void TC_UC_AC_2_1(){
+         assertFalse(b.getOrdineId()>0);
+     }
+     
+     @Test
+     public void TC_UC_AC_2_2(){
+         assertTrue(b1.getOrdineId()>0);
+         assertFalse(OrdineDAO.idEsiste(b1.getOrdineId()));
+     }
+     
+     @Test
+     public void TC_UC_AC_2_3(){
+         assertTrue(b2.getOrdineId()>0);
+         assertTrue(OrdineDAO.idEsiste(b2.getOrdineId()));
+         assertFalse(b2.getStato()>0 && b2.getStato()<3 && b2.getStato()==oracolo);
+     }
+     
+     @Test
+     public void TC_UC_AC_2_4(){
+         assertTrue(b3.getOrdineId()>0);
+         assertTrue(OrdineDAO.idEsiste(b3.getOrdineId()));
+         assertTrue(b3.getStato()>0 && b3.getStato()<3 && b3.getStato()==oracolo);
+     }
+     
 
+     
 }

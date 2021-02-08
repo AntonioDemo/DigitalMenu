@@ -1,4 +1,4 @@
-[
+
     {
         "ordineId": 1,
         "stato": 1,
@@ -15,50 +15,4 @@
                 }
             }
         ]
-    },
-    {
-        "ordineId": 10,
-        "stato": 2,
-        "listaProdotti": [
-            {
-                "quantita": 1,
-                "deleteing": "",
-                "prodotto": {
-                    "prodottoId": 2,
-                    "prezzo": 6.0,
-                    "foto": "DigitalMenu_Server\\foto\\patatine_bacon.png",
-                    "nome": "Patatine Barbeque",
-                    "listaIngredienti": []
-                }
-            },
-            {
-                "quantita": 1,
-                "deleteing": "",
-                "prodotto": {
-                    "prodottoId": 1,
-                    "prezzo": 5.0,
-                    "foto": "DigitalMenu_Server\\foto\\patatine_m.png",
-                    "nome": "Patatine",
-                    "listaIngredienti": []
-                }
-            }
-        ]
-    },
-    {
-        "ordineId": 11,
-        "stato": 1,
-        "listaProdotti": [
-            {
-                "quantita": 1,
-                "deleteing": "",
-                "prodotto": {
-                    "prodottoId": 20,
-                    "prezzo": 5.0,
-                    "foto": "DigitalMenu_Server\\foto\\king_fusion_oreo.png",
-                    "nome": "King Fusion Oreo",
-                    "listaIngredienti": []
-                }
-            }
-        ]
     }
-]

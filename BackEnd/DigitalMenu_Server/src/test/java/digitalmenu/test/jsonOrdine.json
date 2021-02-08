@@ -1,15 +1,15 @@
 {
-        "ordineId": 135,
+        "ordineId": 19,
         "stato": 1,
         "listaProdotti": [
             {
                 "quantita": 2,
                 "deleteing": "",
                 "prodotto": {
-                    "prodottoId": 1,
+                    "prodottoId": 7,
                     "prezzo": 12.0,
-                    "foto": "DigitalMenu_Server\\foto\\patatine_m.png",
-                    "nome": "Patatine",
+                    "foto": "DigitalMenu_Server\foto\bronx_steakhouse.png",
+                    "nome": "Bronx Steakhouse",
                     "listaIngredienti": []
                 }
             }

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.dlmc.digitalmenu_server.dao;
 
 
@@ -89,8 +85,6 @@ public class ProdottoDAO {
 		}catch(Exception e) {e.printStackTrace();}	
 		finally {
 			try {
-				if(preparedStatement != null) 
-					preparedStatement.close();
 				if(preparedStatement != null) 
 					preparedStatement.close();
 			} catch (SQLException e) {
