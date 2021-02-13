@@ -12,6 +12,8 @@ import static io.restassured.RestAssured.given;
 import io.restassured.response.Response;
 import java.io.File;
 import java.io.IOException;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,22 +28,21 @@ import org.skyscreamer.jsonassert.JSONAssert;
  *
  * @author Anto
  */
-public class GestioneCategoriaTest {
+public class GestioneCategoriaTest extends TestCase{
 
     String oracolo;
     CategoriaBean catEsistente = new CategoriaBean();
     CategoriaBean catNonEsistente = new CategoriaBean();
     CategoriaBean catMinZero = new CategoriaBean();
-
-    public GestioneCategoriaTest() {
-
-    }
+    Response respEsistente, respNonEsistente, respMinZero;
+   
 
     @Before
+    @Override
     public void setUp() throws IOException {
         
-        oracolo = FileUtils.readFileToString(new File("C:\\Users\\Administrator\\workspace\\Università\\DigitalMenuFileProgetto\\backendBrach\\DigitalMenu/Back"
-                + "End/DigitalMenu_Server/src/test/java/digitalmenu/test/jsonCategorie.json"), "utf-8");
+        oracolo = FileUtils.readFileToString(new File("/home/alby/DigitalMenu/BackEnd/Digital"
+                + "Menu_Server/src/test/java/digitalmenu/test/jsonCategorie.json"), "utf-8");
         
         //BUONO
         catEsistente = (CategoriaBean) new Gson().fromJson(oracolo, CategoriaBean.class);
@@ -52,33 +53,46 @@ public class GestioneCategoriaTest {
         //CATEGORIA < 0
         catMinZero = (CategoriaBean) new Gson().fromJson(oracolo, CategoriaBean.class);
         catMinZero.setCategoriaId(-1);
-
+        
+         respNonEsistente = given()
+                .when()
+                .get("http://localhost:8080/DigitalMenu_Server/GestioneCategoria?id=" + catNonEsistente.getCategoriaId())
+                .then()
+                .extract()
+                .response();
+        /* String jsonBody = response.getBody().asString();
+JSONArray data = new JSONArray(jsonBody);
+String oracolo = FileUtils.readFileToString(new File("C:\\Users\\Gerardo\\Desktop\\DigitalMenu\\BackEnd\\DigitalMenu_Server\\src\\test\\java\\digitalmenu\\test\\jsonIdCategoria.json"), "utf-8");
+JSONAssert.assertEquals(oracolo, data, false);*/
+         
+         respMinZero = given()
+                .when()
+                .get("http://localhost:8080/DigitalMenu_Server/GestioneCategoria?id=" + catMinZero.getCategoriaId())
+                .then()
+                .extract()
+                .response();
+         
+         respEsistente = given()
+                .when()
+                .get("http://localhost:8080/DigitalMenu_Server/GestioneCategoria?id=" + catEsistente.getCategoriaId())
+                .then()
+                .extract()
+                .response();
+         
+         System.out.println("ooooooooooooooooooooooooooooooooooooooooo"+respEsistente.getBody().asString());
     }
 
     @After
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    @Test
-    public void getAllPiattiByCat() throws JSONException, IOException {
+  
 
-        Response response = given()
-                .when()
-                .get("http://localhost:8080/DigitalMenu_Server/GestioneCategoria?id=" + catEsistente.getCategoriaId())
-                .then()
-                .statusCode(200)
-                .extract()
-                .response();
-    }
-
-    
     @Test
-    public void test__TC_UC_C_1_1() {
-        assertFalse(catMinZero.getCategoriaId() > 0);
+    public void test_TC_UC_C_1_1() {
+        assertFalse(respMinZero.body().toString().equals("Errore: id errato"));
     }
-     @Test
+  /*   @Test
     public void test_TC_UC_C_1_2() {
         assertTrue(catEsistente.getCategoriaId() > 0);
         assertFalse(CategoriaDAO.controlloCategoria(catNonEsistente.getCategoriaId())); //non esiste
@@ -89,5 +103,10 @@ public class GestioneCategoriaTest {
         assertTrue(CategoriaDAO.controlloCategoria(catEsistente.getCategoriaId()));//esiste
     }
     
-     
+*/     
+     public static TestSuite suite() {
+        return new TestSuite(GestioneCategoriaTest.class);
+
+    }
+
 }
