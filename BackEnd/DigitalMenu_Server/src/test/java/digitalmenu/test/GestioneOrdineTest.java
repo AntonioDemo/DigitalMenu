@@ -15,6 +15,8 @@ import io.restassured.http.ContentType;
 import java.io.File;
 import java.io.IOException;
 import java.util.regex.Pattern;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -25,7 +27,7 @@ import static org.junit.Assert.*;
  *
  * @author Anto
  */
-public class GestioneOrdineTest {
+public class GestioneOrdineTest extends TestCase{
 
     String oracolo;
     OrdineBean b = new OrdineBean();
@@ -88,7 +90,7 @@ public class GestioneOrdineTest {
     }
 
     @Test
-    public void http() {
+    public void test_http() {
 
         given()
                 .contentType(ContentType.JSON)
@@ -194,5 +196,10 @@ public class GestioneOrdineTest {
         assertTrue(Pattern.matches("[a-zA-Z- ]+", (b10.getListaProdotti().get(0).getIngedienteRimoso())));
         assertFalse(IngredienteDAO.controlloDeleteIng(b10.getListaProdotti().get(0).getIngedienteRimoso(),
                 b10.getListaProdotti().get(0).getProdotto().getProdottoId()));
+    }
+    
+        public static TestSuite suite() {
+        return new TestSuite(GestioneOrdineTest.class);
+
     }
 }

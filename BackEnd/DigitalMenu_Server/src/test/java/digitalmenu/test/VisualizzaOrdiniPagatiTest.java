@@ -13,6 +13,8 @@ import io.restassured.response.Response;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +28,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
  *
  * @author Anto
  */
-public class VisualizzaOrdiniPagatiTest {
+public class VisualizzaOrdiniPagatiTest extends TestCase{
 
     String oracolo;
     OrdineBean o = new OrdineBean();
@@ -61,7 +63,7 @@ public class VisualizzaOrdiniPagatiTest {
     }
 
     @Test
-    public void hello() throws JSONException, FileNotFoundException, IOException {
+    public void test_http() throws JSONException, FileNotFoundException, IOException {
         Response response = given()
                 .when()
                 .post("http://localhost:8080/DigitalMenu_Server/VisualizzaOrdiniPagati")
@@ -72,27 +74,32 @@ public class VisualizzaOrdiniPagatiTest {
     }
 
     @Test
-    public void TC_UC_AC_1_1() {
+    public void test_TC_UC_AC_1_1() {
         assertFalse(o.getOrdineId() > 0);
     }
 
     @Test
-    public void TC_UC_AC_1_2() {
+    public void test_TC_UC_AC_1_2() {
         assertTrue(o1.getOrdineId() > 0);
         assertFalse(OrdineDAO.idEsiste(o1.getOrdineId()));
     }
 
     @Test
-    public void TC_UC_AC_1_3() {
+    public void test_TC_UC_AC_1_3() {
         assertTrue(o2.getOrdineId() > 0);
         assertTrue(OrdineDAO.idEsiste(o2.getOrdineId()));
         assertFalse(o2.getStato() > 0 && o2.getStato() < 4);
     }
 
     @Test
-    public void TC_UC_AC_1_4() {
+    public void test_TC_UC_AC_1_4() {
         assertTrue(o3.getOrdineId() > 0);
         assertTrue(OrdineDAO.idEsiste(o3.getOrdineId()));
         assertTrue(o3.getStato() > 0 && o3.getStato() < 4);
+    }
+    
+         public static TestSuite suite() {
+        return new TestSuite(VisualizzaOrdiniPagatiTest.class);
+
     }
 }

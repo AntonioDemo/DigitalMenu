@@ -12,6 +12,8 @@ import static io.restassured.RestAssured.given;
 import io.restassured.response.Response;
 import java.io.File;
 import java.io.IOException;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +27,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
  *
  * @author Anto
  */
-public class GestioneProdottoTest {
+public class GestioneProdottoTest extends TestCase{
 
     String oracolo;
     ProdottoBean proEsistente = new ProdottoBean();
@@ -60,7 +62,7 @@ public class GestioneProdottoTest {
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
-    public void visualizzaDettagliProdotto() throws JSONException, IOException {
+    public void test_visualizzaDettagliProdotto() throws JSONException, IOException {
 
         Response response = given()
                 .when()
@@ -89,5 +91,10 @@ public class GestioneProdottoTest {
     public void test_TC_UC_C_2_3() {
         assertTrue(proEsistente.getProdottoId() > 0);
         assertTrue(ProdottoDAO.controlloProdotto(proEsistente.getProdottoId()));//esiste
+    }
+    
+        public static TestSuite suite() {
+        return new TestSuite(GestioneProdottoTest.class);
+
     }
 }
