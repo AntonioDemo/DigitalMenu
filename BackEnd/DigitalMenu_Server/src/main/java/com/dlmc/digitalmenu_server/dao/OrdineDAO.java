@@ -26,15 +26,9 @@ import java.util.logging.Logger;
 public class OrdineDAO {
 
     public static boolean doSave(OrdineBean b) {
-         if (b.getOrdineId() <0) 
-            return false;
-          if(idEsiste(b.getOrdineId())==true)
-                    return false;
-       
-        if (b.getListaProdotti().size() == 0) 
-            return false;
         
-
+          if(controlloOrdine(b)==true)
+                    return false;
         List<DettagliOrdineBean> p = b.getListaProdotti();
         Connection currentCon = null;
         int id = b.getOrdineId();
@@ -202,15 +196,19 @@ public class OrdineDAO {
 
     }
     
-    public static boolean idEsiste (int id ){
+    public static boolean controlloOrdine (OrdineBean ordine ){
         boolean val = false ;
+        if(ordine.getOrdineId()<0 && ordine.getListaProdotti().size() == 0)
+            return val;
+        if(ordine.getStato() < 0 && ordine.getListaProdotti().get(0).getProdotto().getProdottoId() > 0 && ordine.getListaProdotti().get(0).getquantita()<1)
+            return val;
         String sql = "SELECT stato FROM digitalmenu.ordine WHERE (`idordine` = ?);";
         Connection con;
         try {
             con = DriverManagerConnectionPool.getConnection();
 
             PreparedStatement p = con.prepareStatement(sql);
-            p.setInt(1, id);
+            p.setInt(1, ordine.getOrdineId());
             ResultSet answers = p.executeQuery();
             if (answers.next() == false) {
                 val=false;

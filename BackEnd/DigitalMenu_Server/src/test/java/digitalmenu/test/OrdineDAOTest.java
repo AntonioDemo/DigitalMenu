@@ -21,13 +21,12 @@ import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author Anto
  */
-public class GestioneOrdineTest extends TestCase{
+public class OrdineDAOTest extends TestCase {
 
     String oracolo;
     OrdineBean b = new OrdineBean();
@@ -42,15 +41,15 @@ public class GestioneOrdineTest extends TestCase{
     OrdineBean b9 = new OrdineBean();
     OrdineBean b10 = new OrdineBean();
 
-    public GestioneOrdineTest() {
-
-    }
+   
 
     @Before
     public void setUp() throws IOException {
-        oracolo = FileUtils.readFileToString(new File("C:\\Users\\Administrator\\workspace\\Università\\DigitalMenuFileProgetto\\backendBrach\\DigitalMenu\\BackEnd\\DigitalMenu_Server\\src\\test\\java\\digitalmenu\\test\\jsonOrdine.json"), "utf-8");
+        oracolo = FileUtils.readFileToString(new File("/home/alby/Documenti/DigitalMenu_Server/src/test/ja"
+                + "va/digitalmenu/test/jsonOrdine.json"), "utf-8");
         //ORDINE BUONO
         b = (OrdineBean) new Gson().fromJson(oracolo, OrdineBean.class);
+        b.getListaProdotti().get(0).setIngerdienteRimosso("Cheddar");
         //ORDINE IDORDINE < 0
         b1 = (OrdineBean) new Gson().fromJson(oracolo, OrdineBean.class);
         b1.setOrdineId(-1);
@@ -72,9 +71,6 @@ public class GestioneOrdineTest extends TestCase{
         //ORDINE QUANTITA < 1
         b7 = (OrdineBean) new Gson().fromJson(oracolo, OrdineBean.class);
         b7.getListaProdotti().get(0).setquantita(0);
-        //ORDINE DELETEING LUNGHEZZA < 5
-        b8 = (OrdineBean) new Gson().fromJson(oracolo, OrdineBean.class);
-        b8.getListaProdotti().get(0).setIngerdienteRimosso("oo");
         //ORDINE DELETEING FORMATO
         b9 = (OrdineBean) new Gson().fromJson(oracolo, OrdineBean.class);
         b9.getListaProdotti().get(0).setIngerdienteRimosso("12345");
@@ -103,14 +99,25 @@ public class GestioneOrdineTest extends TestCase{
     }
 
     @Test
-    public void test_TC_UC_C_6_1() {
-        assertFalse(b1.getOrdineId() > 0);
+    public void test_doSave() {
+        assertTrue(OrdineDAO.controlloOrdine(b));
+        assertFalse(OrdineDAO.controlloOrdine(b1));
+        assertFalse(OrdineDAO.controlloOrdine(b2));
+        assertFalse(OrdineDAO.controlloOrdine(b3));
+        assertFalse(OrdineDAO.controlloOrdine(b4));
+        assertFalse(OrdineDAO.controlloOrdine(b5));
+        assertFalse(OrdineDAO.controlloOrdine(b6));
+        assertFalse(OrdineDAO.controlloOrdine(b7));
+        assertFalse(OrdineDAO.controlloOrdine(b9));
+        assertFalse(IngredienteDAO.controlloDeleteIng(b10.getListaProdotti().get(0).getIngedienteRimoso(), 
+                b10.getListaProdotti().get(0).getProdotto().getProdottoId()));
+    
     }
 
     @Test
     public void test_TC_UC_C_6_2() {
         assertTrue(b2.getOrdineId() > 0);
-        assertTrue(OrdineDAO.idEsiste(b2.getOrdineId()));
+        assertTrue(OrdineDAO.controlloOrdine(b2));
     }
 
     @Test
@@ -160,18 +167,6 @@ public class GestioneOrdineTest extends TestCase{
 
     @Test
     public void test_TC_UC_C_6_8() {
-        assertTrue(b8.getOrdineId() > 0);
-        assertFalse(OrdineDAO.idEsiste(b8.getOrdineId()));
-        assertTrue(b8.getStato() > 0);
-        assertTrue(b8.getListaProdotti() != null);
-        assertTrue(b8.getListaProdotti().get(0).getProdotto().getProdottoId() > 0);
-        assertTrue(ProdottoDAO.controlloProdotto(b8.getListaProdotti().get(0).getProdotto().getProdottoId()));
-        assertTrue(b8.getListaProdotti().get(0).getquantita() > 0);
-        assertFalse(b8.getListaProdotti().get(0).getIngedienteRimoso().length() > 4);
-    }
-
-    @Test
-    public void test_TC_UC_C_6_9() {
         assertTrue(b9.getOrdineId() > 0);
         assertFalse(OrdineDAO.idEsiste(b9.getOrdineId()));
         assertTrue(b9.getStato() > 0);
@@ -179,12 +174,11 @@ public class GestioneOrdineTest extends TestCase{
         assertTrue(b9.getListaProdotti().get(0).getProdotto().getProdottoId() > 0);
         assertTrue(ProdottoDAO.controlloProdotto(b9.getListaProdotti().get(0).getProdotto().getProdottoId()));
         assertTrue(b9.getListaProdotti().get(0).getquantita() > 0);
-        assertTrue(b9.getListaProdotti().get(0).getIngedienteRimoso().length() > 4);
         assertFalse(Pattern.matches("[a-zA-Z- ]+", (b9.getListaProdotti().get(0).getIngedienteRimoso())));
     }
 
     @Test
-    public void test_TC_UC_C_6_10() {
+    public void test_TC_UC_C_6_9() {
         assertTrue(b10.getOrdineId() > 0);
         assertFalse(OrdineDAO.idEsiste(b10.getOrdineId()));
         assertTrue(b10.getStato() > 0);
@@ -192,14 +186,25 @@ public class GestioneOrdineTest extends TestCase{
         assertTrue(b10.getListaProdotti().get(0).getProdotto().getProdottoId() > 0);
         assertTrue(ProdottoDAO.controlloProdotto(b10.getListaProdotti().get(0).getProdotto().getProdottoId()));
         assertTrue(b10.getListaProdotti().get(0).getquantita() > 0);
-        assertTrue(b10.getListaProdotti().get(0).getIngedienteRimoso().length() > 4);
         assertTrue(Pattern.matches("[a-zA-Z- ]+", (b10.getListaProdotti().get(0).getIngedienteRimoso())));
         assertFalse(IngredienteDAO.controlloDeleteIng(b10.getListaProdotti().get(0).getIngedienteRimoso(),
                 b10.getListaProdotti().get(0).getProdotto().getProdottoId()));
     }
-    
-        public static TestSuite suite() {
-        return new TestSuite(GestioneOrdineTest.class);
+
+    @Test
+    public void test_TC_UC_C_6_10() {
+        assertTrue(b.getOrdineId() > 0);
+        assertFalse(OrdineDAO.idEsiste(b.getOrdineId()));
+        assertTrue(b.getStato() > 0);
+        assertTrue(b.getListaProdotti() != null);
+        assertTrue(b.getListaProdotti().get(0).getProdotto().getProdottoId() > 0);
+        assertTrue(ProdottoDAO.controlloProdotto(b.getListaProdotti().get(0).getProdotto().getProdottoId()));
+        assertTrue(b.getListaProdotti().get(0).getquantita() > 0);
+        assertTrue(Pattern.matches("[a-zA-Z- ]+", (b.getListaProdotti().get(0).getIngedienteRimoso())));
+//       }
+
+    public static TestSuite suite() {
+        return new TestSuite(OrdineDAOTest.class);
 
     }
 }

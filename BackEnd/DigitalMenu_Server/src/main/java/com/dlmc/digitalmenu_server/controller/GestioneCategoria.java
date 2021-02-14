@@ -36,7 +36,7 @@ public class GestioneCategoria extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-   
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -53,15 +53,19 @@ public class GestioneCategoria extends HttpServlet {
             throws ServletException, IOException {
         String i;
         int a;
+        PrintWriter out = response.getWriter();
         List<ProdottoBean> prodotti;
         i = request.getParameter("id");
         a = Integer.parseInt(i);
         prodotti = CategoriaDAO.getAllPiattiByCat(a);
-        PrintWriter out = response.getWriter();
-        Gson gson = new GsonBuilder().serializeNulls().create();
-        String json = gson.toJson(prodotti);
-        response.getWriter().write(json);
-
+        
+        /*if (prodotti == null) {
+            out.write("Errore: id errato");
+        } else {*/
+            Gson gson = new GsonBuilder().serializeNulls().create();
+            String json = gson.toJson(prodotti);
+            response.getWriter().write(json);
+     //   }
     }
 
     /**

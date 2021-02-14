@@ -9,6 +9,8 @@ import com.dlmc.digitalmenu_server.beans.OrdineBean;
 import com.dlmc.digitalmenu_server.dao.OrdineDAO;
 import static io.restassured.RestAssured.given;
 import io.restassured.response.Response;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 import org.json.JSONException;
 import org.junit.After;
 import org.junit.Before;
@@ -19,7 +21,7 @@ import static org.junit.Assert.*;
  *
  * @author Anto
  */
-public class GestoreStatoOrdineTest {
+public class GestoreStatoOrdineTest extends TestCase{
     int oracolo=1;
     OrdineBean b = new OrdineBean();
     OrdineBean b1 = new OrdineBean();
@@ -52,7 +54,7 @@ public class GestoreStatoOrdineTest {
 
     
     @Test
-     public void setStato() throws JSONException {
+     public void test_setStato() throws JSONException {
          
      Response response = given()
                 .when()
@@ -63,30 +65,33 @@ public class GestoreStatoOrdineTest {
                 .response();
      }
      @Test
-     public void TC_UC_AC_2_1(){
+     public void test_TC_UC_AC_2_1(){
          assertFalse(b.getOrdineId()>0);
      }
      
      @Test
-     public void TC_UC_AC_2_2(){
+     public void test_TC_UC_AC_2_2(){
          assertTrue(b1.getOrdineId()>0);
          assertFalse(OrdineDAO.idEsiste(b1.getOrdineId()));
      }
      
      @Test
-     public void TC_UC_AC_2_3(){
+     public void test_TC_UC_AC_2_3(){
          assertTrue(b2.getOrdineId()>0);
          assertTrue(OrdineDAO.idEsiste(b2.getOrdineId()));
          assertFalse(b2.getStato()>0 && b2.getStato()<3 && b2.getStato()==oracolo);
      }
      
      @Test
-     public void TC_UC_AC_2_4(){
+     public void test_TC_UC_AC_2_4(){
          assertTrue(b3.getOrdineId()>0);
          assertTrue(OrdineDAO.idEsiste(b3.getOrdineId()));
          assertTrue(b3.getStato()>0 && b3.getStato()<3 && b3.getStato()==oracolo);
      }
      
 
-     
+         public static TestSuite suite() {
+        return new TestSuite(GestoreStatoOrdineTest.class);
+
+    }
 }
